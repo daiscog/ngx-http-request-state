@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/examples'],
+  projects: ['<rootDir>/apps/examples', '<rootDir>/libs/http-request-state'],
 };

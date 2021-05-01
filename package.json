@@ -1,5 +1,5 @@
 {
-  "name": "ngx-http-request-status",
+  "name": "ngx-http-request-state",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -7,7 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "nx": "nx",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build http-request-state --prod",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -67,7 +67,9 @@
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "26.2.2",
+    "jest-marbles": "^2.5.1",
     "jest-preset-angular": "8.3.2",
+    "ng-packagr": "^11.0.0",
     "prettier": "2.2.1",
     "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",
