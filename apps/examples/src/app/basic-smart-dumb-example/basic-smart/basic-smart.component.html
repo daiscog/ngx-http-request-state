@@ -1,0 +1,24 @@
+<!--
+  AsyncPipe the state observable into a dumb component.
+  Particularly useful if there are several different requests to pass to the
+  dumb component.
+-->
+<examples-basic-dumb
+  [catPicState]="catPic$ | async"
+  (reloadClick)="reloadPic$.next()"
+></examples-basic-dumb>
+
+<!--
+  Alternatively, use *ngIf...as to destruct the state in the smart component and
+  pass the properties of the state object to individual inputs of the dumb
+  component:
+-->
+<!--
+<examples-basic-dumb-alt
+  *ngIf="catPic$ | async as catPic"
+  [catPic]="catPic.value"
+  [loading]="catPic.isLoading"
+  [error]="catPic.error"
+  (reloadClick)="reloadPic$.next()"
+></examples-basic-dumb-alt>
+-->

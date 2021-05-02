@@ -1,6 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
 /**
+ * Union of the various request state types.
+ */
+export type HttpRequestState<T> = {
+  isLoading: boolean;
+  value?: T;
+  error?: HttpErrorResponse | Error;
+};
+
+/**
  * Represents an in-flight HTTP request to load some data.
  *
  * A <code>value</code> may be provided to represent the previously-known value,
@@ -9,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
  * UI).
  *
  */
-export interface LoadingState<T> {
+export interface LoadingState<T> extends HttpRequestState<T> {
   isLoading: true;
   value?: T;
   error: undefined;
@@ -21,7 +30,7 @@ export interface LoadingState<T> {
  * A <code>value</code> may be omitted if there is no data to display and such
  * a scenario is not considered an error condition.
  */
-export interface LoadedState<T> {
+export interface LoadedState<T> extends HttpRequestState<T> {
   isLoading: false;
   value?: T;
   error: undefined;
@@ -33,16 +42,8 @@ export interface LoadedState<T> {
  *
  * A <code>value</code> may be set to represent a last-known value, or similar.
  */
-export interface ErrorState<T> {
+export interface ErrorState<T> extends HttpRequestState<T> {
   isLoading: false;
   value?: T;
   error: HttpErrorResponse | Error;
 }
-
-/**
- * Union of the various request state types.
- */
-export type HttpRequestState<T> =
-  | LoadingState<T>
-  | LoadedState<T>
-  | ErrorState<T>;

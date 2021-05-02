@@ -28,7 +28,8 @@
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
-      "style": "css"
+      "style": "css",
+      "changeDetection": "OnPush"
     }
   },
   "projects": {
@@ -36,7 +37,7 @@
       "projectType": "application",
       "root": "apps/examples",
       "sourceRoot": "apps/examples/src",
-      "prefix": "ngx-http-request-state",
+      "prefix": "examples",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

@@ -1,0 +1,16 @@
+<h2>Random cat picture</h2>
+
+<p>
+  <button type="button" (click)="reloadClick.emit($event)">Load another</button>
+</p>
+
+<p *ngIf="catPic">
+  <picture>
+    <source srcset="{{catPic.webpurl}}" type="image/webp" />
+    <img src="{{ catPic.url }}" alt="A random picture of a cat" />
+  </picture>
+</p>
+
+<p *ngIf="loading">Loading...</p>
+
+<p *ngIf="error">{{ error.message }}</p>

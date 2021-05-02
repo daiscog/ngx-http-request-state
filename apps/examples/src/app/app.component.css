@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+nav {
+  width: 320px;
+  margin-right: 16px;
+}
