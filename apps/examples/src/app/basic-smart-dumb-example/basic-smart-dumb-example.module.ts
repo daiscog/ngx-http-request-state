@@ -4,6 +4,7 @@ import { BasicSmartComponent } from './basic-smart/basic-smart.component';
 import { BasicDumbComponent } from './basic-dumb/basic-dumb.component';
 import { BasicDumbAltComponent } from './basic-dumb-alt/basic-dumb-alt.component';
 import { RouterModule } from '@angular/router';
+import { LoadingStateModule } from '../loading-state-components/loading-state.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    LoadingStateModule,
     RouterModule.forChild([
       {
         path: '',

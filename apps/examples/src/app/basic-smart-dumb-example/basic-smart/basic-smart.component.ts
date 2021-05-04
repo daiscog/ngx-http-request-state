@@ -11,7 +11,7 @@ import { HttpRequestState, httpRequestStates } from 'ngx-http-request-state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicSmartComponent {
-  constructor(private client: HttpClient) {}
+  constructor(private readonly client: HttpClient) {}
 
   readonly reloadPic$ = new Subject<void>();
 

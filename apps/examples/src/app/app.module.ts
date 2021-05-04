@@ -18,6 +18,13 @@ const routes: Routes = [
         (mod) => mod.BasicSmartDumbExampleModule
       ),
   },
+  {
+    path: 'infinite-scrolling',
+    loadChildren: () =>
+      import('./infinite-scroll-example/infinite-scroll-example.module').then(
+        (mod) => mod.InfiniteScrollExampleModule
+      ),
+  },
 ];
 
 @NgModule({

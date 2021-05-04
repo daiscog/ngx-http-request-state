@@ -11,6 +11,9 @@
   </picture>
 </p>
 
-<p *ngIf="catPicState.isLoading">Loading...</p>
+<examples-spinner *ngIf="catPicState.isLoading"></examples-spinner>
 
-<p *ngIf="catPicState.error">{{ catPicState.error.message }}</p>
+<examples-error
+  *ngIf="catPicState.error"
+  [error]="catPicState.error"
+></examples-error>

@@ -1,0 +1,7 @@
+<examples-book-list [books]="state.value"></examples-book-list>
+<examples-spinner [loading]="state.isLoading"></examples-spinner>
+<examples-error
+  [error]="state.error"
+  [showRetryButton]="true"
+  (retry)="retryAfterError.next()"
+></examples-error>

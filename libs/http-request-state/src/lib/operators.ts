@@ -8,8 +8,11 @@ export function httpRequestStates<T>(): (
   source: Observable<HttpResponse<T> | T>
 ) => Observable<HttpRequestState<T>>;
 export function httpRequestStates<T, K>(
-  mapResponse: (result: HttpResponse<T> | T) => K
-): (source: Observable<HttpResponse<T> | T>) => Observable<HttpRequestState<K>>;
+  mapResponse: (result: HttpResponse<T>) => K
+): (source: Observable<HttpResponse<T>>) => Observable<HttpRequestState<K>>;
+export function httpRequestStates<T, K>(
+  mapResponse: (result: T) => K
+): (source: Observable<T>) => Observable<HttpRequestState<K>>;
 export function httpRequestStates<T, K>(
   mapResponse?: (result: HttpResponse<T> | T) => K
 ): (

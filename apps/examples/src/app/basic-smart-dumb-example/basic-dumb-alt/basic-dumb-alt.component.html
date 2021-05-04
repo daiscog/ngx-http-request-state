@@ -11,6 +11,6 @@
   </picture>
 </p>
 
-<p *ngIf="loading">Loading...</p>
+<examples-spinner *ngIf="loading"></examples-spinner>
 
-<p *ngIf="error">{{ error.message }}</p>
+<examples-error *ngIf="error" [error]="error"></examples-error>

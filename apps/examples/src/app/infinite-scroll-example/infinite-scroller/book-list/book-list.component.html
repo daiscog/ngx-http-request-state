@@ -1,0 +1,25 @@
+<ul *ngIf="books">
+  <li *ngFor="let book of books">
+    <div>
+      <strong>{{ book.titleweb }}</strong>
+    </div>
+    <div *ngIf="book.subtitle">
+      <i>{{ book.subtitle }}</i>
+    </div>
+    <div>
+      <small>({{ book.formatname }})</small>
+    </div>
+    <dl>
+      <dt>Author</dt>
+      <dd>{{ book.authorweb }}</dd>
+      <dt>Blurb</dt>
+      <dd [innerHTML]="book.flapcopy"></dd>
+      <dt>Pages</dt>
+      <dd>{{ book.pages }}</dd>
+      <dt>ISBN</dt>
+      <dd>{{ book.isbn }}</dd>
+      <dt>Released</dt>
+      <dd>{{ book.onsaledate }}</dd>
+    </dl>
+  </li>
+</ul>
