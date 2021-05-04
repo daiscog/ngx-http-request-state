@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { exhaustMap, startWith } from 'rxjs/operators';
-import { CatPic } from '../model/cat-pic';
 import { HttpRequestState, httpRequestStates } from 'ngx-http-request-state';
+import { RandomImageService } from '../random-image.service';
+import { RandomImage } from '../model/random-image';
 
 @Component({
   selector: 'examples-basic-smart',
@@ -11,16 +11,14 @@ import { HttpRequestState, httpRequestStates } from 'ngx-http-request-state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicSmartComponent {
-  constructor(private readonly client: HttpClient) {}
+  constructor(private readonly service: RandomImageService) {}
 
-  readonly reloadPic$ = new Subject<void>();
+  readonly loadNewImage$ = new Subject<void>();
 
-  readonly catPic$: Observable<HttpRequestState<CatPic>> = this.reloadPic$.pipe(
+  readonly imageDetails$: Observable<
+    HttpRequestState<RandomImage>
+  > = this.loadNewImage$.pipe(
     startWith(undefined as void),
-    exhaustMap(() =>
-      this.client
-        .get<CatPic>('https://thatcopy.pw/catapi/rest/')
-        .pipe(httpRequestStates())
-    )
+    exhaustMap(() => this.service.getImage().pipe(httpRequestStates()))
   );
 }

@@ -5,8 +5,8 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { CatPic } from '../model/cat-pic';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RandomImage } from '../model/random-image';
 
 @Component({
   selector: 'examples-basic-dumb-alt',
@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class BasicDumbAltComponent {
   @Input()
-  catPic?: CatPic;
+  imageDetails?: RandomImage;
 
   @Input()
   loading: boolean;

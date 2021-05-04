@@ -1,47 +1,43 @@
 import { BasicSmartComponent } from './basic-smart.component';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpResponse,
-} from '@angular/common/http';
-import { CatPic } from '../model/cat-pic';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { cold } from 'jest-marbles';
 import { errorState, loadedState, loadingState } from 'ngx-http-request-state';
+import { RandomImage } from '../model/random-image';
+import { RandomImageService } from '../random-image.service';
 
 describe('BasicSmartComponent', () => {
   function createComponent(): {
     component: BasicSmartComponent;
-    mockClient: jest.Mocked<HttpClient>;
+    mockService: jest.Mocked<RandomImageService>;
   } {
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-    const mockClient = (<any>{
-      get: jest.fn(),
-    }) as jest.Mocked<HttpClient>;
-    const component = new BasicSmartComponent(mockClient);
+    const mockService = (<any>{
+      getImage: jest.fn(),
+    }) as jest.Mocked<RandomImageService>;
+    const component = new BasicSmartComponent(mockService);
     return {
       component,
-      mockClient,
+      mockService,
     };
   }
 
-  function randomCatPics(count: number): CatPic[] {
-    const pics: CatPic[] = [];
+  function randomImages(count: number): RandomImage[] {
+    const pics: RandomImage[] = [];
     while (count--) {
       pics.push({
-        url: Math.random().toString(),
-        webpurl: Math.random().toString(),
+        image: Math.random().toString(),
       });
     }
     return pics;
   }
 
   function mockResponses(
-    mockClient: jest.Mocked<HttpClient>,
-    responses: (CatPic | HttpErrorResponse)[],
+    mockService: jest.Mocked<RandomImageService>,
+    responses: (RandomImage | HttpErrorResponse)[],
     delay: string = '--'
   ) {
     let calls = 0;
-    mockClient.get.mockImplementation(() => {
+    mockService.getImage.mockImplementation(() => {
       const next = responses[calls++];
       if (next instanceof HttpErrorResponse) {
         return cold(`${delay}#`, undefined, next);
@@ -53,16 +49,16 @@ describe('BasicSmartComponent', () => {
     });
   }
 
-  describe('catPic$', () => {
+  describe('imageDetails$', () => {
     it('should emit loading states in response to button clicks, ignoring repeated clicks until an HTTP response is received', () => {
-      const { component, mockClient } = createComponent();
-      const pics = randomCatPics(3);
-      mockResponses(mockClient, pics, '-----');
+      const { component, mockService } = createComponent();
+      const pics = randomImages(3);
+      mockResponses(mockService, pics, '-----');
       const clicks = '  --c----c-c-c---c-c-----|';
       const expected = 'l----a-l----b--l----c--|';
-      cold(clicks).subscribe(component.reloadPic$);
+      cold(clicks).subscribe(component.loadNewImage$);
 
-      expect(component.catPic$).toBeObservable(
+      expect(component.imageDetails$).toBeObservable(
         cold(expected, {
           l: loadingState(),
           a: loadedState(pics[0]),
@@ -72,22 +68,22 @@ describe('BasicSmartComponent', () => {
       );
     });
 
-    it('should continue to reload cats in response to clicks even after an HTTP error response', () => {
-      const { component, mockClient } = createComponent();
+    it('should continue to reload images in response to clicks even after an HTTP error response', () => {
+      const { component, mockService } = createComponent();
       const error = new HttpErrorResponse({});
-      const responses: (CatPic | HttpErrorResponse)[] = [
-        ...randomCatPics(2),
+      const responses: (RandomImage | HttpErrorResponse)[] = [
+        ...randomImages(2),
         error,
-        ...randomCatPics(1),
+        ...randomImages(1),
       ];
 
-      mockResponses(mockClient, responses);
+      mockResponses(mockService, responses);
 
       const clicks = '  -----c----c----c----|';
       const expected = 'l-a--l-b--l-c--l-d--|';
-      cold(clicks).subscribe(component.reloadPic$);
+      cold(clicks).subscribe(component.loadNewImage$);
 
-      expect(component.catPic$).toBeObservable(
+      expect(component.imageDetails$).toBeObservable(
         cold(expected, {
           l: loadingState(),
           a: loadedState(responses[0]),
