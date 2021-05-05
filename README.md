@@ -1,7 +1,10 @@
 # ngx-http-request-state
 
-An Angular library for wrapping Angular HttpClient requests/responses with loading
-& error information.
+An Angular library for wrapping HttpClient responses with loading & error information.
+
+## Documentation
+
+See [./libs/http-request-state/README.md](./libs/http-request-state/README.md) for documentation.
 
 ## Examples
 

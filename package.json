@@ -8,6 +8,7 @@
     "nx": "nx",
     "start": "ng serve",
     "build": "ng build http-request-state --prod",
+    "postbuild": "cp LICENSE dist/libs/http-request-state",
     "test": "nx run-many --all --target=test",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
     "e2e": "ng e2e",

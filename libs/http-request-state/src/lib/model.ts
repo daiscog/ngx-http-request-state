@@ -1,13 +1,22 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
 /**
- * Union of the various request state types.
+ * Representation of the state of a data-loading operation.
  */
-export type HttpRequestState<T> = {
+export interface HttpRequestState<T> {
+  /**
+   * Whether the request is currently in-flight.
+   */
   isLoading: boolean;
+  /**
+   * The most-recently loaded value (if any).
+   */
   value?: T;
+  /**
+   * The most recent loading error.
+   */
   error?: HttpErrorResponse | Error;
-};
+}
 
 /**
  * Represents an in-flight HTTP request to load some data.
