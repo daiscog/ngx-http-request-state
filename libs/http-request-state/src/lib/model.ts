@@ -2,20 +2,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Representation of the state of a data-loading operation.
+ *
+ * The various fields are readonly as this is meant to be used to represent an
+ * immutable snapshot of the current state in a stream of state change events.
  */
 export interface HttpRequestState<T> {
   /**
-   * Whether the request is currently in-flight.
+   * Whether a request is currently in-flight.  true for a "loading" state,
+   * false otherwise.
    */
-  isLoading: boolean;
+  readonly isLoading: boolean;
   /**
-   * The most-recently loaded value (if any).
+   * The response data for a "loaded" state, or optionally the last-known data
+   * (if any) for a "loading" or "error" state.
    */
-  value?: T;
+  readonly value?: T;
   /**
-   * The most recent loading error.
+   * The response error (if any) for an "error" state.
    */
-  error?: HttpErrorResponse | Error;
+  readonly error?: HttpErrorResponse | Error;
 }
 
 /**
@@ -28,9 +33,9 @@ export interface HttpRequestState<T> {
  *
  */
 export interface LoadingState<T> extends HttpRequestState<T> {
-  isLoading: true;
-  value?: T;
-  error: undefined;
+  readonly isLoading: true;
+  readonly value?: T;
+  readonly error: undefined;
 }
 
 /**
@@ -40,9 +45,9 @@ export interface LoadingState<T> extends HttpRequestState<T> {
  * a scenario is not considered an error condition.
  */
 export interface LoadedState<T> extends HttpRequestState<T> {
-  isLoading: false;
-  value?: T;
-  error: undefined;
+  readonly isLoading: false;
+  readonly value?: T;
+  readonly error: undefined;
 }
 
 /**
@@ -52,7 +57,7 @@ export interface LoadedState<T> extends HttpRequestState<T> {
  * A <code>value</code> may be set to represent a last-known value, or similar.
  */
 export interface ErrorState<T> extends HttpRequestState<T> {
-  isLoading: false;
-  value?: T;
-  error: HttpErrorResponse | Error;
+  readonly isLoading: false;
+  readonly value?: T;
+  readonly error: HttpErrorResponse | Error;
 }

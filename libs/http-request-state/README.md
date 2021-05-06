@@ -2,8 +2,8 @@
 
 An Angular library for wrapping HttpClient responses with loading & error information.
 
-Allows observing the whole lifecycle of HTTP requests as a single observable stream,
-simplifying handling of loading, loaded & error states.
+Allows observing the whole lifecycle of HTTP requests as a single observable stream
+of state changes, simplifying handling of loading, loaded & error states.
 
 ## API
 
@@ -13,17 +13,19 @@ request:
 ```typescript
 export interface HttpRequestState<T> {
   /**
-   * Whether the request is currently in-flight.
+   * Whether a request is currently in-flight.  true for a "loading" state,
+   * false otherwise.
    */
-  isLoading: boolean;
+  readonly isLoading: boolean;
   /**
-   * The most-recently loaded value (if any).
+   * The response data for a "loaded" state, or optionally the last-known data
+   * (if any) for a "loading" or "error" state.
    */
-  value?: T;
+  readonly value?: T;
   /**
-   * The loading error (if any).
+   * The response error (if any) for an "error" state.
    */
-  error?: HttpErrorResponse | Error;
+  readonly error?: HttpErrorResponse | Error;
 }
 ```
 
@@ -32,21 +34,21 @@ as well as a set of type-guard predicates:
 
 ```typescript
 export interface LoadingState<T> extends HttpRequestState<T> {
-  isLoading: true;
-  value?: T;
-  error: undefined;
+  readonly isLoading: true;
+  readonly value?: T;
+  readonly error: undefined;
 }
 
 export interface LoadedState<T> extends HttpRequestState<T> {
-  isLoading: false;
-  value?: T;
-  error: undefined;
+  readonly isLoading: false;
+  readonly value?: T;
+  readonly error: undefined;
 }
 
 export interface ErrorState<T> extends HttpRequestState<T> {
-  isLoading: false;
-  value?: T;
-  error: HttpErrorResponse | Error;
+  readonly isLoading: false;
+  readonly value?: T;
+  readonly error: HttpErrorResponse | Error;
 }
 
 export declare function isLoadingState<T>(
@@ -108,9 +110,9 @@ export class SomeComponent {
    * this observable will immediately emit a LoadingState followed later by
    * either a LoadedState<MyData> or an ErrorState.
    *
-   * Will continue to emit new HttpRequestStates following values in the source
-   * observable even if error responses are thrown by the http client for earlier
-   * requests.
+   * Will continue to emit new HttpRequestStates following values being emitted
+   * from the source observable, even if errors were thrown by the http client
+   * for earlier requests.
    */
   readonly myData$: Observable<
     HttpRequestState<MyData>
