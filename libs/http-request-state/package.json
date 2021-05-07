@@ -1,5 +1,7 @@
 {
   "name": "ngx-http-request-state",
+  "description": "Angular library for wrapping HttpClient responses with loading & error information to allow observing load/loading/error state changes as a stream of events.",
+  "keywords": ["angular", "http", "request", "loading", "error"],
   "version": "1.0.0-rc.1",
   "peerDependencies": {
     "@angular/common": "^8 || ^9 || ^10 || ^11",
@@ -7,5 +9,12 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
-  }
+  },
+  "homepage": "https://github.com/daiscog/ngx-http-request-state#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daiscog/ngx-http-request-state.git",
+    "directory": "libs/http-request-state"
+  },
+  "license": "MIT"
 }
