@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "ngx-http-request-state": ["libs/http-request-state/src/index.ts"]
+      "ngx-http-request-state": ["libs/ngx-http-request-state/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

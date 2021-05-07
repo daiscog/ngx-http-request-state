@@ -4,7 +4,7 @@ An Angular library for wrapping HttpClient responses with loading & error inform
 
 ## Documentation
 
-See [./libs/http-request-state/README.md](./libs/http-request-state/README.md) for documentation.
+See [./libs/ngx-http-request-state/README.md](./libs/ngx-http-request-state/README.md) for documentation.
 
 ## Examples
 

@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/examples', '<rootDir>/libs/http-request-state'],
+  projects: ['<rootDir>/apps/examples', '<rootDir>/libs/ngx-http-request-state'],
 };

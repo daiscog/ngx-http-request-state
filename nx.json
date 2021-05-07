@@ -14,6 +14,6 @@
   "projects": {
     "examples": { "tags": [] },
     "examples-e2e": { "tags": [], "implicitDependencies": ["examples"] },
-    "http-request-state": { "tags": [] }
+    "ngx-http-request-state": { "tags": [] }
   }
 }

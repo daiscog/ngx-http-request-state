@@ -147,21 +147,21 @@
         }
       }
     },
-    "http-request-state": {
+    "ngx-http-request-state": {
       "projectType": "library",
-      "root": "libs/http-request-state",
-      "sourceRoot": "libs/http-request-state/src",
+      "root": "libs/ngx-http-request-state",
+      "sourceRoot": "libs/ngx-http-request-state/src",
       "prefix": "ngx-http-request-state",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "libs/http-request-state/tsconfig.lib.json",
-            "project": "libs/http-request-state/ng-package.json"
+            "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.json",
+            "project": "libs/ngx-http-request-state/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/http-request-state/tsconfig.lib.prod.json"
+              "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.prod.json"
             }
           }
         },
@@ -169,16 +169,16 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/http-request-state/src/**/*.ts",
-              "libs/http-request-state/src/**/*.html"
+              "libs/ngx-http-request-state/src/**/*.ts",
+              "libs/ngx-http-request-state/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/http-request-state"],
+          "outputs": ["coverage/libs/ngx-http-request-state"],
           "options": {
-            "jestConfig": "libs/http-request-state/jest.config.js",
+            "jestConfig": "libs/ngx-http-request-state/jest.config.js",
             "passWithNoTests": true
           }
         }

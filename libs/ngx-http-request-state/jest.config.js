@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'http-request-state',
+  displayName: 'ngx-http-request-state',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,9 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/libs/http-request-state',
+  collectCoverage: true,
+  coverageReporters: ['json', 'html', 'text-summary'],
+  coverageDirectory: '../../coverage/libs/ngx-http-request-state',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
