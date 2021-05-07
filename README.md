@@ -1,5 +1,7 @@
 # ngx-http-request-state
 
+[![Build](https://github.com/daiscog/ngx-http-request-state/actions/workflows/test.yml/badge.svg)](https://github.com/daiscog/ngx-http-request-state/actions/workflows/test.yml)
+
 An Angular library for wrapping HttpClient responses with loading & error information.
 
 ## Documentation
