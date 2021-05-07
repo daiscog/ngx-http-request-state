@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Book, BookApiResponse } from '../model/book';
-import { delay, map, tap } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { delay, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { maybeFakeAnErrorResponse } from '../../../utils/maybeError';
 
