@@ -131,3 +131,8 @@ export class SomeComponent {
   ) {}
 }
 ```
+
+## Examples
+
+See [the examples app](https://github.com/daiscog/ngx-http-request-state/tree/main/apps/examples/src/app) for more example use cases.
+
