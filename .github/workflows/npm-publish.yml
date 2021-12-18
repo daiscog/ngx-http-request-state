@@ -23,4 +23,3 @@ jobs:
         working-directory: ./dist/libs/ngx-http-request-state
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-

@@ -73,13 +73,12 @@ export class InfiniteScrollerComponent implements OnDestroy {
       ),
       map(([state]) => state.value)
     );
-    const retryAfterErrorTrigger$: Observable<
-      Book[]
-    > = this.retryAfterError$.pipe(
-      withLatestFrom(this.state$),
-      filter(([, state]) => isErrorState(state)),
-      map(([, state]) => state.value)
-    );
+    const retryAfterErrorTrigger$: Observable<Book[]> =
+      this.retryAfterError$.pipe(
+        withLatestFrom(this.state$),
+        filter(([, state]) => isErrorState(state)),
+        map(([, state]) => state.value)
+      );
     const initialLoadTrigger$: Observable<Book[]> = of([]);
     merge(initialLoadTrigger$, autoReloadTrigger$, retryAfterErrorTrigger$)
       .pipe(takeUntil(race(this.noMoreBooks$, this.destroyed$)))
