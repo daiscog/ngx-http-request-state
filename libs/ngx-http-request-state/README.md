@@ -71,9 +71,9 @@ export class SomeComponent {
    * Will immediately emit a LoadingState, then either a LoadedState<MyData> or
    * an ErrorState, depending on whether the underlying HTTP request was successful.
    */
-  readonly myData$: Observable<
-    HttpRequestState<MyData>
-  > = this.httpClient.get<MyData>(someUrl).pipe(httpRequestStates());
+  readonly myData$: Observable<HttpRequestState<MyData>> = this.httpClient
+    .get<MyData>(someUrl)
+    .pipe(httpRequestStates());
 
   constructor(private httpClient: HttpClient) {}
 }
@@ -114,16 +114,15 @@ export class SomeComponent {
    * from the source observable, even if errors were thrown by the http client
    * for earlier requests.
    */
-  readonly myData$: Observable<
-    HttpRequestState<MyData>
-  > = this.activatedRoute.params.pipe(
-    pluck('id'),
-    switchMap((id) =>
-      this.httpClient
-        .get<MyData>(`${baseUrl}?id=${id}`)
-        .pipe(httpRequestStates())
-    )
-  );
+  readonly myData$: Observable<HttpRequestState<MyData>> =
+    this.activatedRoute.params.pipe(
+      pluck('id'),
+      switchMap((id) =>
+        this.httpClient
+          .get<MyData>(`${baseUrl}?id=${id}`)
+          .pipe(httpRequestStates())
+      )
+    );
 
   constructor(
     private httpClient: HttpClient,
@@ -135,4 +134,3 @@ export class SomeComponent {
 ## Examples
 
 See [the examples app](https://github.com/daiscog/ngx-http-request-state/tree/main/apps/examples/src/app) for more example use cases.
-

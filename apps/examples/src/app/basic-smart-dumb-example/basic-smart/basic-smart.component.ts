@@ -15,10 +15,9 @@ export class BasicSmartComponent {
 
   readonly loadNewImage$ = new Subject<void>();
 
-  readonly imageDetails$: Observable<
-    HttpRequestState<RandomImage>
-  > = this.loadNewImage$.pipe(
-    startWith(undefined as void),
-    exhaustMap(() => this.service.getImage().pipe(httpRequestStates()))
-  );
+  readonly imageDetails$: Observable<HttpRequestState<RandomImage>> =
+    this.loadNewImage$.pipe(
+      startWith(undefined as void),
+      exhaustMap(() => this.service.getImage().pipe(httpRequestStates()))
+    );
 }

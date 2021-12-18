@@ -1,3 +1,3 @@
-module.exports = {
-  projects: ['<rootDir>/apps/examples', '<rootDir>/libs/ngx-http-request-state'],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };
