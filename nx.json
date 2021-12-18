@@ -14,20 +14,9 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "parallel": 1
       }
-    }
-  },
-  "projects": {
-    "examples": {
-      "tags": []
-    },
-    "examples-e2e": {
-      "tags": [],
-      "implicitDependencies": ["examples"]
-    },
-    "ngx-http-request-state": {
-      "tags": []
     }
   },
   "targetDependencies": {
