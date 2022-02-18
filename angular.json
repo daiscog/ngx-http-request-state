@@ -19,9 +19,7 @@
               "apps/examples/src/favicon.ico",
               "apps/examples/src/assets"
             ],
-            "styles": [
-              "apps/examples/src/styles.css"
-            ],
+            "styles": ["apps/examples/src/styles.css"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -86,15 +84,11 @@
               "apps/examples/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/examples"
-          ],
+          "outputs": ["coverage/apps/examples"],
           "options": {
             "jestConfig": "apps/examples/jest.config.js",
             "passWithNoTests": true
@@ -123,13 +117,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/examples-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/examples-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -160,15 +150,11 @@
               "libs/ngx-http-request-state/src/**/*.html"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ngx-http-request-state"
-          ],
+          "outputs": ["coverage/libs/ngx-http-request-state"],
           "options": {
             "jestConfig": "libs/ngx-http-request-state/jest.config.js",
             "passWithNoTests": true
