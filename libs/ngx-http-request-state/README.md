@@ -5,6 +5,11 @@ An Angular library for wrapping HttpClient responses with loading & error inform
 Allows observing the whole lifecycle of HTTP requests as a single observable stream
 of state changes, simplifying handling of loading, loaded & error states.
 
+## Versions
+
+Use version `2.x.x` for Angular 14.
+Use version `1.2.0` for Angular 13 or earlier.
+
 ## API
 
 The library declares an `HttpRequestState` interface to reflect the state of an HTTP
