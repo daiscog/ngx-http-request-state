@@ -21,5 +21,44 @@
     "url": "https://github.com/daiscog/ngx-http-request-state.git",
     "directory": "libs/ngx-http-request-state"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nrwl/angular:package",
+        "options": {
+          "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.json",
+          "project": "libs/ngx-http-request-state/ng-package.json",
+          "updateBuildableProjectDepsInPackageJson": true
+        },
+        "configurations": {
+          "production": {
+            "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.prod.json"
+          }
+        }
+      },
+      "lint": {
+        "executor": "@nrwl/linter:eslint",
+        "options": {
+          "lintFilePatterns": [
+            "libs/ngx-http-request-state/src/**/*.ts",
+            "libs/ngx-http-request-state/src/**/*.html"
+          ]
+        },
+        "outputs": [
+          "{options.outputFile}"
+        ]
+      },
+      "test": {
+        "executor": "@nrwl/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/ngx-http-request-state"
+        ],
+        "options": {
+          "jestConfig": "libs/ngx-http-request-state/jest.config.ts",
+          "passWithNoTests": true
+        }
+      }
+    }
+  }
 }
