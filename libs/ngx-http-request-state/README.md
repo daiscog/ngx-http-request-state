@@ -7,8 +7,9 @@ of state changes, simplifying handling of loading, loaded & error states.
 
 ## Versions
 
-Use version `2.x.x` for Angular 14.
-Use version `1.2.0` for Angular 13 or earlier.
+Use version `2.1.x` for Angular 14 or 15.
+Use version `1.2.0` for Angular 8 to 13.
+Angular versions 7 and earlier are not supported.
 
 ## API
 

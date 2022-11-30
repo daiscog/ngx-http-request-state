@@ -144,7 +144,7 @@
           "options": {
             "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.json",
             "project": "libs/ngx-http-request-state/ng-package.json",
-            "updateBuildableProjectDepsInPackageJson": true
+            "updateBuildableProjectDepsInPackageJson": false
           },
           "configurations": {
             "production": {
