@@ -16,7 +16,7 @@ import { isLoadedState, isErrorState } from "./type-guards"
  *    If not specified, the first error is simply used as the error of the merged state
  * @returns The merged HttpRequestState<T>
  */
-export function merge<T>(
+export function mergeStates<T>(
   states: HttpRequestState<T>[],
   mergeValues: (states: LoadedState<T>["value"][]) => LoadedState<T>["value"],
   mergeErrors?: (states: ErrorState<T>["error"][]) => ErrorState<T>["error"],
