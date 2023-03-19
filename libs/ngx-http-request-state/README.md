@@ -101,6 +101,83 @@ spinner, the data, or an error state:
 </ng-container>
 ```
 
+### Merging
+
+The intention of this library is to provide a _view model_ loading state, where you prep all the data
+first then, pipe it through `httpRequestStates` towards the end, instead of piping it at the lowest level,
+for instance in an API service.
+
+If you however already have multiple `HttpRequestState<T>` objects and would like to merge the values together,
+then `mergeStates` can be used.
+
+Consider the following example where we assume we have no control over `MyDataService` and it already wraps requests in `HttpRequestState`:
+
+```typescript
+// Third party
+@Injectable()
+export class MyDataService {
+
+  constructor(private httpClient: HttpClient) {}
+
+  getMyData(someParameter: any) {
+    return this.httpClient
+      .get<MyData>(someUrl + someParameter)
+      .pipe(httpRequestStates());
+  }
+}
+
+// Our component
+export class SomeComponent {
+  readonly myDataCollection$ = combineLatest([
+    this.myDataService.getMyData("red"),
+    this.myDataService.getMyData("blue"),
+  ]).pipe(
+    map(states =>
+      mergeStates(states, (dataArray) => {
+        // Merge list of data together then return a new instance of MyData
+      })
+    )
+  )
+
+  constructor(private myDataService: MyDataService) {}
+}
+```
+
+(We use `combineLatest` instead of `forkJoin` to get loading updates)
+
+Using `mergeStates` allows you to act "inside" the `HttpRequestState`, directly on the values or the errors.
+
+As long as one of the states are loading, the resulting merged state will be a `LoadingState`.
+When all finish successfully, the callback of the second argument is called with all the available values.
+
+If an error occur in any of the requests, the merged state will be an `ErrorState`.
+By default the first of the errors will be returned.
+It is possible to override this with the third argument.
+
+Example:
+
+```typescript
+export class SomeComponent {
+  readonly myDataCollection$ = combineLatest([
+    this.myDataService.getMyData("will-fail"),
+    this.myDataService.getMyData("will-also-fail"),
+    this.myDataService.getMyData("blue"),
+  ]).pipe(
+    map(states =>
+      mergeStates(states, (dataArray) => {
+        // Merge list of data together then return a new instance of MyData
+      }, (errors) => {
+        // Combine the errors and return a new instance of HttpErrorResponse or Error
+      })
+    )
+  )
+
+  constructor(private myDataService: MyDataService) {}
+}
+```
+
+
+
 ### switchMap safety
 
 The `httpRequestStates()` operator catches errors and replaces them with ordinary (`next`) emission of
