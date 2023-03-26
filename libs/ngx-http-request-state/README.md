@@ -150,7 +150,7 @@ Using `mergeStates` allows you to act "inside" the `HttpRequestState`, directly 
 As long as one of the states are loading, the resulting merged state will be a `LoadingState`.
 When all finish successfully, the callback of the second argument is called with all the available values.
 
-If an error occur in any of the requests, the merged state will be an `ErrorState`.
+If an error occurs in any of the requests, the merged state will be an `ErrorState`.
 By default the first of the errors will be returned.
 It is possible to override this with the third argument.
 
