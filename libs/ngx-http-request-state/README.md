@@ -116,7 +116,6 @@ Consider the following example where we assume we have no control over `MyDataSe
 // Third party
 @Injectable()
 export class MyDataService {
-
   constructor(private httpClient: HttpClient) {}
 
   getMyData(someParameter: any) {
@@ -128,16 +127,16 @@ export class MyDataService {
 
 // Our component
 export class SomeComponent {
-  readonly myDataCollection$ = combineLatest([
-    this.myDataService.getMyData("red"),
-    this.myDataService.getMyData("blue"),
+  readonly myDataCollection$ = combineLatest([
+    this.myDataService.getMyData('red'),
+    this.myDataService.getMyData('blue'),
   ]).pipe(
-    map(states =>
+    map((states) =>
       mergeStates(states, (dataArray) => {
         // Merge list of data together then return a new instance of MyData
       })
     )
-  )
+  );
 
   constructor(private myDataService: MyDataService) {}
 }
@@ -158,25 +157,27 @@ Example:
 
 ```typescript
 export class SomeComponent {
-  readonly myDataCollection$ = combineLatest([
-    this.myDataService.getMyData("will-fail"),
-    this.myDataService.getMyData("will-also-fail"),
-    this.myDataService.getMyData("blue"),
+  readonly myDataCollection$ = combineLatest([
+    this.myDataService.getMyData('will-fail'),
+    this.myDataService.getMyData('will-also-fail'),
+    this.myDataService.getMyData('blue'),
   ]).pipe(
-    map(states =>
-      mergeStates(states, (dataArray) => {
-        // Merge list of data together then return a new instance of MyData
-      }, (errors) => {
-        // Combine the errors and return a new instance of HttpErrorResponse or Error
-      })
+    map((states) =>
+      mergeStates(
+        states,
+        (dataArray) => {
+          // Merge list of data together then return a new instance of MyData
+        },
+        (errors) => {
+          // Combine the errors and return a new instance of HttpErrorResponse or Error
+        }
+      )
     )
-  )
+  );
 
   constructor(private myDataService: MyDataService) {}
 }
 ```
-
-
 
 ### switchMap safety
 

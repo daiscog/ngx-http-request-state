@@ -1,6 +1,10 @@
-import { HttpRequestState, LoadedState, ErrorState, LoadingState } from "./model"
-import { isLoadedState, isErrorState } from "./type-guards"
-
+import {
+  HttpRequestState,
+  LoadedState,
+  ErrorState,
+  LoadingState,
+} from './model';
+import { isLoadedState, isErrorState } from './type-guards';
 
 /**
  * Given an array of HttpRequestState<T>, merge them together into a new single HttpRequestState<T>,
@@ -18,13 +22,13 @@ import { isLoadedState, isErrorState } from "./type-guards"
  */
 export function mergeStates<T>(
   states: HttpRequestState<T>[],
-  mergeValues: (states: LoadedState<T>["value"][]) => LoadedState<T>["value"],
-  mergeErrors?: (states: ErrorState<T>["error"][]) => ErrorState<T>["error"],
+  mergeValues: (states: LoadedState<T>['value'][]) => LoadedState<T>['value'],
+  mergeErrors?: (states: ErrorState<T>['error'][]) => ErrorState<T>['error']
 ): HttpRequestState<T> {
   if (states.every(isLoadedState)) {
     const state: LoadedState<T> = {
       isLoading: false,
-      value: mergeValues(states.map(s => s.value)),
+      value: mergeValues(states.map((s) => s.value)),
       error: undefined,
     };
     return state;
@@ -32,17 +36,17 @@ export function mergeStates<T>(
 
   if (states.some(isErrorState)) {
     if (mergeErrors === undefined) {
-      mergeErrors = (errors: ErrorState<T>["error"][]) => errors[0];
+      mergeErrors = (errors: ErrorState<T>['error'][]) => errors[0];
     }
 
-    const errorStates = states.filter(isErrorState)
+    const errorStates = states.filter(isErrorState);
     const state: ErrorState<T> = {
       isLoading: false,
       value: undefined,
-      error: mergeErrors(errorStates.map(s => s.error)),
+      error: mergeErrors(errorStates.map((s) => s.error)),
     };
     return state;
-  };
+  }
 
   // If one of the state is still not loaded and there are no errors
   // the merged state is still considered loading.
