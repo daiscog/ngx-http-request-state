@@ -6,6 +6,8 @@ import {
   LoadingState,
 } from './model';
 
+type StateName = 'LoadingState' | 'LoadedState' | 'ErrorState';
+
 interface TestParams {
   function: (state?: HttpRequestState<unknown>) => boolean;
   LoadingState: boolean;
@@ -34,7 +36,7 @@ const testMatrix: TestParams[] = [
   },
 ];
 
-const testStates = Object.freeze({
+const testStates: Record<StateName, HttpRequestState<void>> = Object.freeze({
   LoadingState: Object.freeze<LoadingState<void>>({
     isLoading: true,
     error: undefined,
@@ -42,6 +44,7 @@ const testStates = Object.freeze({
   LoadedState: Object.freeze<LoadedState<void>>({
     isLoading: false,
     error: undefined,
+    value: undefined,
   }),
   ErrorState: Object.freeze<ErrorState<void>>({
     isLoading: false,
@@ -53,8 +56,9 @@ describe('type-guards', () => {
   testMatrix.forEach((testParams) => {
     describe(testParams.function.name, () => {
       Object.entries(testStates).forEach(([stateName, state]) => {
-        it(`should return ${testParams[stateName]} when given a ${stateName}`, () => {
-          expect(testParams.function(state)).toBe(testParams[stateName]);
+        const expectedResult = testParams[stateName as StateName];
+        it(`should return ${expectedResult} when given a ${stateName}`, () => {
+          expect(testParams.function(state)).toBe(expectedResult);
         });
       });
       it('should return false if given undefined', () => {

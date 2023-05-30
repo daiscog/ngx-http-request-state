@@ -2,88 +2,98 @@ import { BasicSmartComponent } from './basic-smart.component';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { cold } from 'jest-marbles';
 import { errorState, loadedState, loadingState } from 'ngx-http-request-state';
-import { RandomImage } from '../model/random-image';
-import { RandomImageService } from '../random-image.service';
+import { Brewery } from '../model/brewery';
+import { RandomBreweryService } from '../random-brewery.service';
+import * as angularCore from '@angular/core';
 
 describe('BasicSmartComponent', () => {
   function createComponent(): {
     component: BasicSmartComponent;
-    mockService: jest.Mocked<RandomImageService>;
+    mockService: jest.Mocked<RandomBreweryService>;
   } {
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     const mockService = (<any>{
-      getImage: jest.fn(),
-    }) as jest.Mocked<RandomImageService>;
-    const component = new BasicSmartComponent(mockService);
+      randomBrewery: jest.fn(),
+    }) as jest.Mocked<RandomBreweryService>;
+
+    const injectSpy = jest.spyOn(angularCore, 'inject');
+    injectSpy.mockImplementation((providerToken: unknown) => {
+      if (providerToken === RandomBreweryService) {
+        return mockService;
+      }
+      throw new Error(`Unexpected inject token: ` + providerToken);
+    });
+
+    const component = new BasicSmartComponent();
     return {
       component,
       mockService,
     };
   }
 
-  function randomImages(count: number): RandomImage[] {
-    const pics: RandomImage[] = [];
+  function randomBreweries(count: number): Brewery[] {
+    const breweries: Brewery[] = [];
     while (count--) {
-      pics.push({
-        image: Math.random().toString(),
+      breweries.push({
+        name: 'RandomBrew #' + Math.random().toString(),
       });
     }
-    return pics;
+    return breweries;
   }
 
   function mockResponses(
-    mockService: jest.Mocked<RandomImageService>,
-    responses: (RandomImage | HttpErrorResponse)[],
-    delay: string = '--'
+    mockService: jest.Mocked<RandomBreweryService>,
+    responses: (Brewery | HttpErrorResponse)[],
+    delay = '--'
   ) {
-    let calls = 0;
-    mockService.getImage.mockImplementation(() => {
-      const next = responses[calls++];
-      if (next instanceof HttpErrorResponse) {
-        return cold(`${delay}#`, undefined, next);
-      }
-      const response = new HttpResponse({
-        body: next,
+    responses.forEach((next) => {
+      mockService.randomBrewery.mockImplementationOnce(() => {
+        if (next instanceof HttpErrorResponse) {
+          return cold(`${delay}#`, undefined, next);
+        }
+        const response = new HttpResponse({
+          body: next,
+        });
+        return cold(`${delay}(r|)`, { r: response });
       });
-      return cold(`${delay}(r|)`, { r: response });
     });
   }
 
-  describe('imageDetails$', () => {
+  describe('#brewery$', () => {
     it('should emit loading states in response to button clicks, ignoring repeated clicks until an HTTP response is received', () => {
       const { component, mockService } = createComponent();
-      const pics = randomImages(3);
-      mockResponses(mockService, pics, '-----');
-      const clicks = '  --c----c-c-c---c-c-----|';
-      const expected = 'l----a-l----b--l----c--|';
-      cold(clicks).subscribe(component.loadNewImage$);
+      const breweries = randomBreweries(3);
+      mockResponses(mockService, breweries, '-----');
+      const clicks = '  --c----c-c-c---c-c-----';
+      const expected = 'l----a-l----b--l----c--';
+      cold(clicks).subscribe(() => component.reload());
 
-      expect(component.imageDetails$).toBeObservable(
+      expect(component.brewery$).toBeObservable(
         cold(expected, {
           l: loadingState(),
-          a: loadedState(pics[0]),
-          b: loadedState(pics[1]),
-          c: loadedState(pics[2]),
+          a: loadedState(breweries[0]),
+          b: loadedState(breweries[1]),
+          c: loadedState(breweries[2]),
         })
       );
     });
 
-    it('should continue to reload images in response to clicks even after an HTTP error response', () => {
+    it('should continue to reload breweries in response to clicks even after an HTTP error response', () => {
       const { component, mockService } = createComponent();
       const error = new HttpErrorResponse({});
-      const responses: (RandomImage | HttpErrorResponse)[] = [
-        ...randomImages(2),
+      const responses: (Brewery | HttpErrorResponse)[] = [
+        ...randomBreweries(2),
         error,
-        ...randomImages(1),
+        ...randomBreweries(1),
       ];
 
       mockResponses(mockService, responses);
 
-      const clicks = '  -----c----c----c----|';
-      const expected = 'l-a--l-b--l-c--l-d--|';
-      cold(clicks).subscribe(component.loadNewImage$);
+      const clicks = '  -----c----c----c----';
+      const expected = 'l-a--l-b--l-c--l-d--';
+      cold(clicks).subscribe(() => component.reload());
 
-      expect(component.imageDetails$).toBeObservable(
+      expect(component.brewery$).toBeObservable(
         cold(expected, {
           l: loadingState(),
           a: loadedState(responses[0]),

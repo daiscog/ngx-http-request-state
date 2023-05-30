@@ -1,0 +1,11 @@
+<h3>{{ brewery.name }}</h3>
+
+<p>
+  {{ brewery.city }},
+  <ng-container *ngIf="brewery.state">{{ brewery.state }},</ng-container>
+  {{ brewery.country }}
+</p>
+
+<p *ngIf="brewery.website_url">
+  <a [href]="brewery.website_url">Website</a>
+</p>

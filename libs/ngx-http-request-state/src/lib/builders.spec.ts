@@ -24,7 +24,7 @@ describe('builders', () => {
       expect(result.value).toBe(value);
     });
     it('should return a new LoadedState with no value if given undefined', () => {
-      const result = loadedState();
+      const result = loadedState(undefined);
       expect(isLoadedState(result)).toBe(true);
       expect(result.value).toBeUndefined();
     });

@@ -1,18 +1,14 @@
-<h2>Random picture</h2>
+<h2>Random brewery</h2>
 
 <p>
   <button type="button" (click)="reloadClick.emit($event)">Load another</button>
 </p>
 
-<p *ngIf="imageDetails?.value?.image as image">
-  <picture>
-    <img src="{{ image }}" alt="A random picture" />
-  </picture>
-</p>
+<examples-brewery-details
+  *ngIf="brewery.value"
+  [brewery]="brewery.value"
+></examples-brewery-details>
 
-<examples-spinner *ngIf="imageDetails.isLoading"></examples-spinner>
+<examples-spinner *ngIf="brewery.isLoading"></examples-spinner>
 
-<examples-error
-  *ngIf="imageDetails.error"
-  [error]="imageDetails.error"
-></examples-error>
+<examples-error *ngIf="brewery.error" [error]="brewery.error"></examples-error>

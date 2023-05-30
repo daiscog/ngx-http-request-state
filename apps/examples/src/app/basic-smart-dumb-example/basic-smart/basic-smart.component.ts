@@ -1,23 +1,32 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { exhaustMap, startWith } from 'rxjs/operators';
 import { HttpRequestState, httpRequestStates } from 'ngx-http-request-state';
-import { RandomImageService } from '../random-image.service';
-import { RandomImage } from '../model/random-image';
+import { RandomBreweryService } from '../random-brewery.service';
+import { Brewery } from '../model/brewery';
+import { BasicDumbComponent } from '../basic-dumb/basic-dumb.component';
+import { BasicDumbAltComponent } from '../basic-dumb-alt/basic-dumb-alt.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [AsyncPipe, BasicDumbComponent, BasicDumbAltComponent],
   selector: 'examples-basic-smart',
   templateUrl: './basic-smart.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicSmartComponent {
-  constructor(private readonly service: RandomImageService) {}
+  private readonly service = inject(RandomBreweryService);
 
-  readonly loadNewImage$ = new Subject<void>();
+  private readonly loadNewBrewery$ = new Subject<void>();
 
-  readonly imageDetails$: Observable<HttpRequestState<RandomImage>> =
-    this.loadNewImage$.pipe(
+  readonly brewery$: Observable<HttpRequestState<Brewery>> =
+    this.loadNewBrewery$.pipe(
       startWith(undefined as void),
-      exhaustMap(() => this.service.getImage().pipe(httpRequestStates()))
+      exhaustMap(() => this.service.randomBrewery().pipe(httpRequestStates()))
     );
+
+  reload() {
+    this.loadNewBrewery$.next();
+  }
 }

@@ -46,7 +46,7 @@ export interface LoadingState<T> extends HttpRequestState<T> {
  */
 export interface LoadedState<T> extends HttpRequestState<T> {
   readonly isLoading: false;
-  readonly value?: T;
+  readonly value: T;
   readonly error: undefined;
 }
 

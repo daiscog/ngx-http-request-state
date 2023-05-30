@@ -4,8 +4,8 @@
   dumb component.
 -->
 <examples-basic-dumb
-  [imageDetails]="imageDetails$ | async"
-  (reloadClick)="loadNewImage$.next()"
+  [brewery]="(brewery$ | async)!"
+  (reloadClick)="reload()"
 ></examples-basic-dumb>
 
 <!--
@@ -15,10 +15,10 @@
 -->
 <!--
 <examples-basic-dumb-alt
-  *ngIf="imageDetails$ | async as imageDetails"
-  [imageDetails]="imageDetails.value"
-  [loading]="imageDetails.isLoading"
-  [error]="imageDetails.error"
-  (reloadClick)="loadNewImage$.next()"
+  *ngIf="brewery$ | async as brewery"
+  [brewery]="brewery.value"
+  [loading]="brewery.isLoading"
+  [error]="brewery.error"
+  (reloadClick)="reload()"
 ></examples-basic-dumb-alt>
 -->
