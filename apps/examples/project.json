@@ -2,7 +2,7 @@
   "name": "examples",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "ngx-http-request-state",
+  "prefix": "examples",
   "sourceRoot": "apps/examples/src",
   "tags": [],
   "targets": {

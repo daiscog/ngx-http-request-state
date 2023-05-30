@@ -1,0 +1,20 @@
+table {
+  border-collapse: collapse;
+  border: 1px solid #556;
+}
+
+thead tr {
+  border-bottom: 1px solid #556;
+  background: #999;
+}
+
+tr + tr {
+  border-top: 1px solid #778;
+}
+
+th,
+td {
+  vertical-align: top;
+  text-align: left;
+  padding: 0.25rem 0.5rem;
+}
