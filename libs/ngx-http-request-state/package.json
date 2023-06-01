@@ -8,14 +8,14 @@
     "loading",
     "error"
   ],
-  "version": "2.2.0",
+  "version": "3.0.0",
   "peerDependencies": {
     "rxjs": "^6.2.0 || ^7.4.0",
-    "@angular/common": "^14.2.10 || ^15.0.1",
-    "@angular/core": "^14.2.10 || ^15.0.1"
+    "@angular/common": "^14.2.10 || ^15.0.1 || ^16.0.0",
+    "@angular/core": "^14.2.10 || ^15.0.1 || ^16.0.0"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.3.0"
   },
   "homepage": "https://github.com/daiscog/ngx-http-request-state#readme",
   "repository": {
@@ -24,43 +24,5 @@
     "directory": "libs/ngx-http-request-state"
   },
   "license": "MIT",
-  "nx": {
-    "targets": {
-      "build": {
-        "executor": "@nrwl/angular:package",
-        "options": {
-          "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.json",
-          "project": "libs/ngx-http-request-state/ng-package.json",
-          "updateBuildableProjectDepsInPackageJson": true
-        },
-        "configurations": {
-          "production": {
-            "tsConfig": "libs/ngx-http-request-state/tsconfig.lib.prod.json"
-          }
-        }
-      },
-      "lint": {
-        "executor": "@nrwl/linter:eslint",
-        "options": {
-          "lintFilePatterns": [
-            "libs/ngx-http-request-state/src/**/*.ts",
-            "libs/ngx-http-request-state/src/**/*.html"
-          ]
-        },
-        "outputs": [
-          "{options.outputFile}"
-        ]
-      },
-      "test": {
-        "executor": "@nrwl/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/libs/ngx-http-request-state"
-        ],
-        "options": {
-          "jestConfig": "libs/ngx-http-request-state/jest.config.ts",
-          "passWithNoTests": true
-        }
-      }
-    }
-  }
+  "sideEffects": false
 }

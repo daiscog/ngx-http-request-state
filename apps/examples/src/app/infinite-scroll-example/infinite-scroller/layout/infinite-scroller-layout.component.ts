@@ -9,11 +9,17 @@ import {
   OnDestroy,
   Input,
 } from '@angular/core';
-import { SpinnerComponent } from '../../../loading-state-components/spinner/spinner.component';
+import {
+  ErrorComponent,
+  SpinnerComponent,
+} from '../../../loading-state-components';
 import { HttpRequestState } from 'ngx-http-request-state';
-import { Book } from '../model/book';
+import { BookApiResponse } from '../model/book';
+import { BookListComponent } from '../book-list/book-list.component';
 
 @Component({
+  standalone: true,
+  imports: [ErrorComponent, SpinnerComponent, BookListComponent],
   selector: 'examples-infinite-scroller-layout',
   templateUrl: './infinite-scroller-layout.component.html',
   styleUrls: ['./infinite-scroller-layout.component.css'],
@@ -21,23 +27,29 @@ import { Book } from '../model/book';
 })
 export class InfiniteScrollerLayoutComponent implements OnInit, OnDestroy {
   @Input()
-  state: HttpRequestState<Book[]>;
+  state: HttpRequestState<BookApiResponse> | null = null;
+
+  // @Output()
+  // readonly loadMore = new EventEmitter<void>();
 
   @Output()
   readonly spinnerInViewport = new EventEmitter<boolean>();
 
   @Output()
-  readonly retryAfterError = new EventEmitter<void>();
+  readonly retryBtnClicked = new EventEmitter<void>();
 
   @ViewChild(SpinnerComponent, {
     read: ElementRef,
     static: true,
   })
-  spinner: ElementRef;
+  spinner!: ElementRef;
 
   private readonly intersectionObserver = new IntersectionObserver(
     (entries) => {
       this.spinnerInViewport.emit(entries[0].isIntersecting);
+      // if (entries[0].isIntersecting && !this.state?.isLoading) {
+      //   this.loadMore.emit();
+      // }
     }
   );
 

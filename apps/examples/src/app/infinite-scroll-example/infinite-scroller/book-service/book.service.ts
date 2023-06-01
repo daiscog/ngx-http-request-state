@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { maybeFakeAnErrorResponse } from '../../../utils/maybeError';
 
-const BOOKS_URL = 'https://reststop.randomhouse.com/resources/titles';
+const BOOKS_URL = 'https://openlibrary.org/search.json';
 
 @Injectable({
   providedIn: 'root',
@@ -17,21 +17,16 @@ export class BookService {
     searchTerm: string,
     start: number,
     max: number
-  ): Observable<Book[]> {
+  ): Observable<BookApiResponse> {
     const searchTermEncoded = encodeURIComponent(searchTerm);
+    const page = start / max + 1;
     return this.client
       .get<BookApiResponse>(
-        `${BOOKS_URL}?search=${searchTermEncoded}&start=${start}&max=${max}`
+        `${BOOKS_URL}?author=${searchTermEncoded}&page=${page}&limit=${max}`
       )
       .pipe(
         delay(400), // fake delay to see loading spinner for longer
-        maybeFakeAnErrorResponse(0.3),
-        map((response) => {
-          if (Array.isArray(response.title)) {
-            return response.title;
-          }
-          return response.title ? [response.title] : [];
-        })
+        maybeFakeAnErrorResponse(0.0)
       );
   }
 }

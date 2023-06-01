@@ -7,8 +7,9 @@ of state changes, simplifying handling of loading, loaded & error states.
 
 ## Versions
 
-Use version `^2.1.0` for Angular 14 or 15.
-Use version `1.2.0` for Angular 8 to 13.
+Version `^3.0.0` supports Angular 14, 15 & 16.
+Version `^2.1.0` supports Angular 14 & 15.
+Version `1.2.0` supports Angular 8 to 13.
 Angular versions 7 and earlier are not supported.
 
 ## API
@@ -47,7 +48,7 @@ export interface LoadingState<T> extends HttpRequestState<T> {
 
 export interface LoadedState<T> extends HttpRequestState<T> {
   readonly isLoading: false;
-  readonly value?: T;
+  readonly value: T;
   readonly error: undefined;
 }
 
@@ -57,15 +58,9 @@ export interface ErrorState<T> extends HttpRequestState<T> {
   readonly error: HttpErrorResponse | Error;
 }
 
-export declare function isLoadingState<T>(
-  state?: HttpRequestState<T>
-): state is LoadingState<T>;
-export declare function isLoadedState<T>(
-  state?: HttpRequestState<T>
-): state is LoadedState<T>;
-export declare function isErrorState<T>(
-  state?: HttpRequestState<T>
-): state is ErrorState<T>;
+export declare function isLoadingState<T>(state?: HttpRequestState<T>): state is LoadingState<T>;
+export declare function isLoadedState<T>(state?: HttpRequestState<T>): state is LoadedState<T>;
+export declare function isErrorState<T>(state?: HttpRequestState<T>): state is ErrorState<T>;
 ```
 
 Finally, a function called `httpRequestStates()` is provided which returns an RxJs operator
@@ -119,9 +114,7 @@ export class MyDataService {
   constructor(private httpClient: HttpClient) {}
 
   getMyData(someParameter: any) {
-    return this.httpClient
-      .get<MyData>(someUrl + someParameter)
-      .pipe(httpRequestStates());
+    return this.httpClient.get<MyData>(someUrl + someParameter).pipe(httpRequestStates());
   }
 }
 
@@ -198,20 +191,12 @@ export class SomeComponent {
    * from the source observable, even if errors were thrown by the http client
    * for earlier requests.
    */
-  readonly myData$: Observable<HttpRequestState<MyData>> =
-    this.activatedRoute.params.pipe(
-      pluck('id'),
-      switchMap((id) =>
-        this.httpClient
-          .get<MyData>(`${baseUrl}?id=${id}`)
-          .pipe(httpRequestStates())
-      )
-    );
+  readonly myData$: Observable<HttpRequestState<MyData>> = this.activatedRoute.params.pipe(
+    pluck('id'),
+    switchMap((id) => this.httpClient.get<MyData>(`${baseUrl}?id=${id}`).pipe(httpRequestStates()))
+  );
 
-  constructor(
-    private httpClient: HttpClient,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) {}
 }
 ```
 

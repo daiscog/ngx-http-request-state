@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
  *
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
-export const loadingState = <T>(value?: T): LoadingState<T> => ({
+export const loadingState = <T = any>(value?: T): LoadingState<T> => ({
   isLoading: true,
   value,
   error: undefined,
@@ -17,7 +17,7 @@ export const loadingState = <T>(value?: T): LoadingState<T> => ({
  *
  * @param value
  */
-export const loadedState = <T>(value?: T): LoadedState<T> => ({
+export const loadedState = <T>(value: T): LoadedState<T> => ({
   isLoading: false,
   error: undefined,
   value,
@@ -29,7 +29,7 @@ export const loadedState = <T>(value?: T): LoadedState<T> => ({
  * @param error
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
-export const errorState = <T>(
+export const errorState = <T = any>(
   error: HttpErrorResponse | Error,
   value?: T
 ): ErrorState<T> => ({

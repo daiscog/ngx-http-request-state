@@ -1,6 +1,5 @@
 <examples-infinite-scroller-layout
-  *ngIf="state$ | async as state"
-  [state]="state"
-  (spinnerInViewport)="spinnerInViewport$.next($event)"
-  (retryAfterError)="retryAfterError$.next()"
+  [state]="state$ | async"
+  (retryBtnClicked)="retry()"
+  (spinnerInViewport)="spinnerInViewport($event)"
 ></examples-infinite-scroller-layout>

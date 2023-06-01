@@ -37,12 +37,12 @@ describe('merge', () => {
     const mergedLoadingError = mergeStates([loading, error], sum);
 
     expect(isErrorState(mergedLoadingError)).toBe(true);
-    expect(mergedLoadingError.error.message).toBe('Test');
+    expect(mergedLoadingError.error?.message).toBe('Test');
 
     const mergedLoadedError = mergeStates([loaded, error], sum);
 
     expect(isErrorState(mergedLoadedError)).toBe(true);
-    expect(mergedLoadedError.error.message).toBe('Test');
+    expect(mergedLoadedError.error?.message).toBe('Test');
   });
 
   it('should return error state with custom error in case mergeErrors is supplied', () => {
@@ -60,6 +60,6 @@ describe('merge', () => {
     );
 
     expect(isErrorState(mergedLoadingError)).toBe(true);
-    expect(mergedLoadingError.error.message).toBe('Goodbye world');
+    expect(mergedLoadingError.error?.message).toBe('Goodbye world');
   });
 });

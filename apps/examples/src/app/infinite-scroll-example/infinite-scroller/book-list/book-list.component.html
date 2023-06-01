@@ -1,25 +1,20 @@
 <ul *ngIf="books">
-  <li *ngFor="let book of books">
+  <li *ngFor="let book of books; trackBy: bookKey">
     <div>
-      <strong>{{ book.titleweb }}</strong>
+      <strong>{{ book.title }}</strong>
     </div>
     <div *ngIf="book.subtitle">
       <i>{{ book.subtitle }}</i>
     </div>
-    <div>
-      <small>({{ book.formatname }})</small>
-    </div>
     <dl>
       <dt>Author</dt>
-      <dd>{{ book.authorweb }}</dd>
-      <dt>Blurb</dt>
-      <dd [innerHTML]="book.flapcopy"></dd>
-      <dt>Pages</dt>
-      <dd>{{ book.pages }}</dd>
-      <dt>ISBN</dt>
-      <dd>{{ book.isbn }}</dd>
-      <dt>Released</dt>
-      <dd>{{ book.onsaledate }}</dd>
+      <dd *ngFor="let author of book.author_name">{{ author }}</dd>
+      <ng-container *ngIf="book.first_sentence">
+        <dt>First sentence</dt>
+        <dd *ngFor="let sentence of book.first_sentence">{{ sentence }}</dd>
+      </ng-container>
+      <dt>First published</dt>
+      <dd>{{ book.first_publish_year }}</dd>
     </dl>
   </li>
 </ul>

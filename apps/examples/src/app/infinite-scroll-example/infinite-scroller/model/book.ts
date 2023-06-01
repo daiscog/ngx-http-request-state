@@ -1,14 +1,13 @@
 export interface Book {
-  titleweb: string;
-  subtitle: string;
-  formatname: string;
-  isbn: string;
-  onsaledate: string;
-  pages: string;
-  flapcopy: string;
-  authorweb: string;
+  key: string;
+  first_sentence?: string[];
+  title: string;
+  subtitle?: string;
+  author_name: string[];
+  first_publish_year: number;
 }
 
 export interface BookApiResponse {
-  title: Book[];
+  numFound: number;
+  docs: Book[];
 }

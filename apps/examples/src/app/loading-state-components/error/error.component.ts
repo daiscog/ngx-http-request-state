@@ -6,17 +6,20 @@ import {
   Output,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgIf } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [NgIf],
   selector: 'examples-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ErrorComponent {
-  visible: boolean;
-  title: string;
-  message: string;
+  visible = false;
+  title?: string;
+  message?: string;
 
   @Input()
   set error(error: HttpErrorResponse | Error | undefined) {
@@ -33,13 +36,14 @@ export class ErrorComponent {
       this.visible = true;
       this.title = 'Error';
       this.message = error.message;
+      console.error(error);
     } else {
       this.visible = false;
     }
   }
 
   @Input()
-  showRetryButton: boolean;
+  showRetryButton = false;
 
   @Output()
   readonly retry = new EventEmitter<void>();

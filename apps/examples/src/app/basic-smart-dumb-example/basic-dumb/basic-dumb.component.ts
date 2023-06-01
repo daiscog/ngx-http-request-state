@@ -6,16 +6,24 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { HttpRequestState } from 'ngx-http-request-state';
-import { RandomImage } from '../model/random-image';
+import { Brewery } from '../model/brewery';
+import { NgIf } from '@angular/common';
+import {
+  ErrorComponent,
+  SpinnerComponent,
+} from '../../loading-state-components';
+import { BreweryDetailsComponent } from '../brewery-details/brewery-details.component';
 
 @Component({
+  standalone: true,
+  imports: [NgIf, SpinnerComponent, ErrorComponent, BreweryDetailsComponent],
   selector: 'examples-basic-dumb',
   templateUrl: './basic-dumb.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicDumbComponent {
   @Input()
-  imageDetails: HttpRequestState<RandomImage>;
+  brewery!: HttpRequestState<Brewery>;
 
   @Output()
   readonly reloadClick = new EventEmitter<MouseEvent>();

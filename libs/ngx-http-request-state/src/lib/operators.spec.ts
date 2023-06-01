@@ -35,7 +35,8 @@ describe('operators', () => {
       });
 
       describe('with a mapping function', () => {
-        const mapper = (response) => `Hello, ${response.body.foo}`;
+        const mapper = (response: HttpResponse<{ foo: string }>) =>
+          `Hello, ${response.body?.foo}`;
 
         it('should emit loading, then the result of applying the response mapper for a successful request', () => {
           const response = new HttpResponse({

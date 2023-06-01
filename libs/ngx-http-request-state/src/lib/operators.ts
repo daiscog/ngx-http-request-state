@@ -18,14 +18,14 @@ export function httpRequestStates<T, K>(
 ): (
   source: Observable<HttpResponse<T> | T>
 ) => Observable<HttpRequestState<T | K>> {
-  return (source: Observable<HttpResponse<T>>) =>
+  return (source: Observable<HttpResponse<T> | T>) =>
     source.pipe(
       map((result) =>
         loadedState<T | K>(
           mapResponse
             ? mapResponse(result)
             : result instanceof HttpResponse
-            ? result.body
+            ? (result.body as T)
             : result
         )
       ),
