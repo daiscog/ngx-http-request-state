@@ -5,6 +5,11 @@ An Angular library for wrapping HttpClient responses with loading & error inform
 Allows observing the whole lifecycle of HTTP requests as a single observable stream
 of state changes, simplifying handling of loading, loaded & error states.
 
+If you have found this library useful, please consider donating to say thanks and
+support its development:
+
+<a href='https://ko-fi.com/daicodes' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
+
 ## Versions
 
 Version `^3.0.0` supports Angular 14, 15 & 16.
