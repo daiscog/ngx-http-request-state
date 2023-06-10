@@ -96,11 +96,47 @@ spinner, the data, or an error state:
 </ng-container>
 ```
 
+### switchMap safety
+
+The `httpRequestStates()` operator catches errors and replaces them with ordinary (`next`) emission of
+an `ErrorState` object instead, so it will never throw an error.
+
+This means when used inside a `switchMap`, no special error handling is required to prevent the outer
+observable being unsubscribed following an error response in the inner observable:
+
+```typescript
+export class SomeComponent {
+  /**
+   * Every time the source observable (activatedRoute.params) emits a value,
+   * this observable will immediately emit a LoadingState followed later by
+   * either a LoadedState<MyData> or an ErrorState.
+   *
+   * It will continue to emit new HttpRequestStates following values being emitted
+   * from the source observable, even if errors were thrown by the http client
+   * for earlier requests.
+   */
+  readonly myData$: Observable<HttpRequestState<MyData>> = this.activatedRoute.params.pipe(
+    pluck('id'),
+    distinctUntilChanged(),
+    // The .pipe(httpRequestStates()) needs to be _inside_ the switchMap so that it can
+    // catch errors throw by the inner observable.  If httpRequestStates() was just
+    // placed after the switchMap operator in the outer pipe instead, then an error from
+    // the inner observable (httpClient.get) would make the swichMap operator unsubcribe
+    // from the outer observable, and so we'd no longer react to changes in the route params.
+    switchMap((id) => this.httpClient.get<MyData>(`${baseUrl}?id=${id}`).pipe(httpRequestStates()))
+  );
+
+  constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) {}
+}
+```
+
 ### Merging
 
 The intention of this library is to provide a _view model_ loading state, where you prep all the data
 first then, pipe it through `httpRequestStates` towards the end, instead of piping it at the lowest level,
 for instance in an API service.
+
+An example of this can be seen in [the examples app](https://github.com/daiscog/ngx-http-request-state/tree/main/apps/examples/src/app/multiple-data-sources/container/multiple-sources-container.component.ts).
 
 If you however already have multiple `HttpRequestState<T>` objects and would like to merge the values together,
 then `mergeStates` can be used.
@@ -169,34 +205,6 @@ export class SomeComponent {
   );
 
   constructor(private myDataService: MyDataService) {}
-}
-```
-
-### switchMap safety
-
-The `httpRequestStates()` operator catches errors and replaces them with ordinary (`next`) emission of
-an `ErrorState` object instead, so it will never throw an error.
-
-This means when used inside a `switchMap`, no special error handling is required to prevent the outer
-observable being unsubscribed following an error response in the inner observable:
-
-```typescript
-export class SomeComponent {
-  /**
-   * Every time the source observable (activatedRoute.params) emits a value,
-   * this observable will immediately emit a LoadingState followed later by
-   * either a LoadedState<MyData> or an ErrorState.
-   *
-   * Will continue to emit new HttpRequestStates following values being emitted
-   * from the source observable, even if errors were thrown by the http client
-   * for earlier requests.
-   */
-  readonly myData$: Observable<HttpRequestState<MyData>> = this.activatedRoute.params.pipe(
-    pluck('id'),
-    switchMap((id) => this.httpClient.get<MyData>(`${baseUrl}?id=${id}`).pipe(httpRequestStates()))
-  );
-
-  constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) {}
 }
 ```
 
