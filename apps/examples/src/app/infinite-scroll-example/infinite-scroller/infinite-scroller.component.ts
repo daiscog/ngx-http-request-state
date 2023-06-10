@@ -7,10 +7,8 @@ import {
   map,
   shareReplay,
   startWith,
-  switchMap,
   switchScan,
   takeUntil,
-  tap,
   combineLatest,
   Observable,
   Subject,
@@ -78,6 +76,11 @@ export class InfiniteScrollerComponent {
           )
           .pipe(
             httpRequestStates(),
+            // For a loading or error state, add the previously loaded
+            // data value to it so it doesn't disappear from the view.
+            //
+            // For a loaded state, append the new value to the end of the
+            // previous value, giving us an ever-growing list of items.
             map((state) => ({
               ...state,
               value: mergeData(prevState.value, state.value),

@@ -14,4 +14,8 @@ export const appRoutes: Route[] = [
     path: 'infinite-scrolling',
     loadComponent: () => import('./infinite-scroll-example'),
   },
+  {
+    path: 'multi-source',
+    loadComponent: () => import('./multiple-data-sources'),
+  },
 ];

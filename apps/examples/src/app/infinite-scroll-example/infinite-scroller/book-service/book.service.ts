@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Book, BookApiResponse } from '../model/book';
-import { delay, map } from 'rxjs/operators';
+import { BookApiResponse } from '../model/book';
+import { delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { maybeFakeAnErrorResponse } from '../../../utils/maybeError';
@@ -25,8 +25,10 @@ export class BookService {
         `${BOOKS_URL}?author=${searchTermEncoded}&page=${page}&limit=${max}`
       )
       .pipe(
-        delay(400), // fake delay to see loading spinner for longer
-        maybeFakeAnErrorResponse(0.0)
+        // Fake delay to see loading spinner for longer.  Don't do this in a real app!
+        delay(400),
+        // Sometimes randomly throwError so that we can demonstrate the retry mechanism:
+        maybeFakeAnErrorResponse(0.2)
       );
   }
 }

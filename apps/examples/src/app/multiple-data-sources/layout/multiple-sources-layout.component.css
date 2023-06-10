@@ -1,0 +1,19 @@
+form {
+  display: flex;
+  justify-content: center;
+}
+
+fieldset {
+  padding-inline: 2rem;
+}
+
+select,
+button {
+  margin: 0.25rem;
+}
+
+.results {
+  display: grid;
+  column-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}

@@ -1,0 +1,20 @@
+<ng-container *ngIf="beers.length; else noBeers">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let beer of beers">
+        <td>{{ beer.name }}</td>
+        <td>{{ beer.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #noBeers>
+  <p>No beers found</p>
+</ng-template>
