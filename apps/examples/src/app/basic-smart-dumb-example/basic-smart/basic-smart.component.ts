@@ -16,7 +16,7 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicSmartComponent {
-  private readonly service = inject(RandomBreweryService);
+  constructor(private readonly service: RandomBreweryService) {}
 
   private readonly loadNewBrewery$ = new Subject<void>();
 

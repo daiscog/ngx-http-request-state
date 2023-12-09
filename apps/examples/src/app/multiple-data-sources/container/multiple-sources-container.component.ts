@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultipleSourcesLayoutComponent } from '../layout/multiple-sources-layout.component';
 import { BrewDateForm } from '../model/form';
@@ -17,8 +17,9 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultipleSourcesContainerComponent {
-  private readonly punkApi = inject(PunkApiService);
   private readonly search$ = new Subject<BrewDateForm>();
+
+  constructor(private readonly punkApi: PunkApiService) {}
 
   readonly beers$: Observable<HttpRequestState<Brews & BrewDateForm>> =
     this.search$.pipe(switchMap((params) => this.getBeers(params)));
