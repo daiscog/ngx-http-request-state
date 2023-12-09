@@ -21,13 +21,8 @@ describe('MultipleSourcesContainerComponent', () => {
       brewedBefore: jest.fn(),
       brewedAfter: jest.fn(),
     } as unknown as jest.Mocked<PunkApiService>;
-    jest.spyOn(angularCore, 'inject').mockImplementation((token) => {
-      if (token === PunkApiService) {
-        return service;
-      }
-      throw new Error('No provider for ' + token);
-    });
-    const component = new MultipleSourcesContainerComponent();
+
+    const component = new MultipleSourcesContainerComponent(service);
     return { component, service };
   }
 

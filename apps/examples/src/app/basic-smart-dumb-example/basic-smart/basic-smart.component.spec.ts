@@ -4,7 +4,6 @@ import { cold } from 'jest-marbles';
 import { errorState, loadedState, loadingState } from 'ngx-http-request-state';
 import { Brewery } from '../model/brewery';
 import { RandomBreweryService } from '../random-brewery.service';
-import * as angularCore from '@angular/core';
 
 describe('BasicSmartComponent', () => {
   function createComponent(): {
@@ -16,15 +15,7 @@ describe('BasicSmartComponent', () => {
       randomBrewery: jest.fn(),
     }) as jest.Mocked<RandomBreweryService>;
 
-    const injectSpy = jest.spyOn(angularCore, 'inject');
-    injectSpy.mockImplementation((providerToken: unknown) => {
-      if (providerToken === RandomBreweryService) {
-        return mockService;
-      }
-      throw new Error(`Unexpected inject token: ` + providerToken);
-    });
-
-    const component = new BasicSmartComponent();
+    const component = new BasicSmartComponent(mockService);
     return {
       component,
       mockService,
