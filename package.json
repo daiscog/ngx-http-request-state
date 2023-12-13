@@ -6,7 +6,6 @@
     "ng": "nx",
     "start": "nx serve examples",
     "build": "nx build ngx-http-request-state --configuration production",
-    "postbuild": "cp LICENSE dist/libs/ngx-http-request-state",
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
     "format": "nx format:write",
