@@ -7,8 +7,8 @@
     "start": "nx serve examples",
     "build": "nx build ngx-http-request-state --configuration production",
     "postbuild": "cp LICENSE dist/libs/ngx-http-request-state",
-    "test": "nx run-many --all --target=test",
-    "lint": "nx workspace-lint && nx run-many --all --target=lint",
+    "test": "nx run-many -t test",
+    "lint": "nx run-many -t lint",
     "format": "nx format:write",
     "format:write": "nx format:write",
     "format:check": "nx format:check"
