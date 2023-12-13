@@ -12,6 +12,8 @@ import {
 } from 'ngx-http-request-state';
 import { HttpErrorResponse } from '@angular/common/http';
 
+jest.mock('@angular/core');
+
 describe('MultipleSourcesContainerComponent', () => {
   function setup(): {
     component: MultipleSourcesContainerComponent;
