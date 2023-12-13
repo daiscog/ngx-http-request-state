@@ -3,6 +3,23 @@
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
+      "files": "package.json",
+      "parser": "jsonc-eslint-parser",
+      "rules": {
+        "@nx/dependency-checks": [
+          "error",
+          {
+            "ignoredDependencies": ["tslib"],
+            "ignoredFiles": [
+              "**/jest.config.ts",
+              "**/test-setup.ts",
+              "**/*.spec.ts"
+            ]
+          }
+        ]
+      }
+    },
+    {
       "files": ["*.ts"],
       "rules": {
         "@angular-eslint/directive-selector": [

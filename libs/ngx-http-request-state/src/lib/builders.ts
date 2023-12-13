@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
  *
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadingState = <T = any>(value?: T): LoadingState<T> => ({
   isLoading: true,
   value,
@@ -29,6 +30,7 @@ export const loadedState = <T>(value: T): LoadedState<T> => ({
  * @param error
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const errorState = <T = any>(
   error: HttpErrorResponse | Error,
   value?: T

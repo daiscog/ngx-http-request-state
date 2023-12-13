@@ -6,6 +6,8 @@ import { Brewery } from '../model/brewery';
 import { RandomBreweryService } from '../random-brewery.service';
 import * as angularCore from '@angular/core';
 
+jest.mock('@angular/core');
+
 describe('BasicSmartComponent', () => {
   function createComponent(): {
     component: BasicSmartComponent;

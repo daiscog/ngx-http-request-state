@@ -3,5 +3,6 @@
   "dest": "../../dist/libs/ngx-http-request-state",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "assets": ["LICENSE"]
 }

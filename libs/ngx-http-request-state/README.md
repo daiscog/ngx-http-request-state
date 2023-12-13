@@ -12,7 +12,8 @@ support its development:
 
 ## Versions
 
-Version `^3.0.0` supports Angular 14, 15 & 16.
+Version `^3.1.0` supports Angular 14 - 17.
+Version `3.0.0` supports Angular 14, 15 & 16.
 Version `^2.1.0` supports Angular 14 & 15.
 Version `1.2.0` supports Angular 8 to 13.
 Angular versions 7 and earlier are not supported.
