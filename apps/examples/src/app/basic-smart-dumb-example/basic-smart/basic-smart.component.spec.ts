@@ -24,7 +24,7 @@ describe('BasicSmartComponent', () => {
         return mockService;
       }
       throw new Error(`Unexpected inject token: ` + providerToken);
-    }) as any);
+    }) as typeof angularCore.inject);
 
     const component = new BasicSmartComponent();
     return {
