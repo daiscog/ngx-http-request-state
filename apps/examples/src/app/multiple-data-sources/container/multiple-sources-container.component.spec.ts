@@ -1,3 +1,5 @@
+jest.mock('@angular/core');
+
 import * as angularCore from '@angular/core';
 import { MultipleSourcesContainerComponent } from './multiple-sources-container.component';
 import { PunkApiService } from '../service/punk-api.service';
@@ -12,8 +14,6 @@ import {
 } from 'ngx-http-request-state';
 import { HttpErrorResponse } from '@angular/common/http';
 
-jest.mock('@angular/core');
-
 describe('MultipleSourcesContainerComponent', () => {
   function setup(): {
     component: MultipleSourcesContainerComponent;
@@ -23,12 +23,12 @@ describe('MultipleSourcesContainerComponent', () => {
       brewedBefore: jest.fn(),
       brewedAfter: jest.fn(),
     } as unknown as jest.Mocked<PunkApiService>;
-    jest.spyOn(angularCore, 'inject').mockImplementation((token) => {
+    jest.spyOn(angularCore, 'inject').mockImplementation(((token: unknown) => {
       if (token === PunkApiService) {
         return service;
       }
       throw new Error('No provider for ' + token);
-    });
+    }) as typeof angularCore.inject);
     const component = new MultipleSourcesContainerComponent();
     return { component, service };
   }
