@@ -19,12 +19,12 @@ describe('BasicSmartComponent', () => {
     }) as jest.Mocked<RandomBreweryService>;
 
     const injectSpy = jest.spyOn(angularCore, 'inject');
-    injectSpy.mockImplementation((providerToken: unknown) => {
+    injectSpy.mockImplementation(((providerToken: unknown) => {
       if (providerToken === RandomBreweryService) {
         return mockService;
       }
       throw new Error(`Unexpected inject token: ` + providerToken);
-    });
+    }) as any);
 
     const component = new BasicSmartComponent();
     return {
@@ -48,8 +48,8 @@ describe('BasicSmartComponent', () => {
     responses: (Brewery | HttpErrorResponse)[],
     delay = '--'
   ) {
-    responses.forEach((next) => {
-      mockService.randomBrewery.mockImplementationOnce(() => {
+    responses
+      .map((next) => {
         if (next instanceof HttpErrorResponse) {
           return cold(`${delay}#`, undefined, next);
         }
@@ -57,8 +57,10 @@ describe('BasicSmartComponent', () => {
           body: next,
         });
         return cold(`${delay}(r|)`, { r: response });
+      })
+      .forEach((next) => {
+        mockService.randomBrewery.mockImplementationOnce(() => next);
       });
-    });
   }
 
   describe('#brewery$', () => {
