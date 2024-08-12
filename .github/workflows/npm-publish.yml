@@ -28,7 +28,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
       - run: pnpm run test
-      - run: pnpm publish
+      - run: |
+          pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
+          pnpm publish --no-git-checks
         working-directory: ./dist/libs/ngx-http-request-state
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
