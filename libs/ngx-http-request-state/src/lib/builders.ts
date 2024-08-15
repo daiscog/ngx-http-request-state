@@ -12,7 +12,6 @@ import { HttpErrorResponse } from '@angular/common/http';
  *
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadingState<T>(value: T): LoadingStateWithValue<T>;
 export function loadingState<T = never>(): LoadingState<T>;
 export function loadingState<T = never>(value?: T): LoadingState<T> {
