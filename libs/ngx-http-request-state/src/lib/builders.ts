@@ -1,4 +1,10 @@
-import { ErrorState, LoadedState, LoadingState } from './model';
+import {
+  ErrorState,
+  ErrorStateWithValue,
+  LoadedState,
+  LoadingState,
+  LoadingStateWithValue,
+} from './model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 /**
@@ -6,23 +12,28 @@ import { HttpErrorResponse } from '@angular/common/http';
  *
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const loadingState = <T = any>(value?: T): LoadingState<T> => ({
-  isLoading: true,
-  value,
-  error: undefined,
-});
+export function loadingState<T>(value: T): LoadingStateWithValue<T>;
+export function loadingState<T = never>(): LoadingState<T>;
+export function loadingState<T = never>(value?: T): LoadingState<T> {
+  return {
+    isLoading: true,
+    value,
+    error: undefined,
+  };
+}
 
 /**
  * Returns a new LoadedState instance, with the optional value as the loaded data.
  *
  * @param value
  */
-export const loadedState = <T>(value: T): LoadedState<T> => ({
-  isLoading: false,
-  error: undefined,
-  value,
-});
+export function loadedState<T>(value: T): LoadedState<T> {
+  return {
+    isLoading: false,
+    error: undefined,
+    value,
+  };
+}
 
 /**
  * Returns a new ErrorState instance with the given error and optional last-known value.
@@ -30,12 +41,20 @@ export const loadedState = <T>(value: T): LoadedState<T> => ({
  * @param error
  * @param value may be provided to indicate the previously-loaded, or last-known, state
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const errorState = <T = any>(
+export function errorState<T>(
+  error: HttpErrorResponse | Error,
+  value: T
+): ErrorStateWithValue<T>;
+export function errorState<T = never>(
+  error: HttpErrorResponse | Error
+): ErrorState<T>;
+export function errorState<T = never>(
   error: HttpErrorResponse | Error,
   value?: T
-): ErrorState<T> => ({
-  isLoading: false,
-  error,
-  value,
-});
+): ErrorState<T> {
+  return {
+    isLoading: false,
+    error,
+    value,
+  };
+}
