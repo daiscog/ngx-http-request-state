@@ -1,29 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
 /**
- * Representation of the state of a data-loading operation.
- *
- * The various fields are readonly as this is meant to be used to represent an
- * immutable snapshot of the current state in a stream of state change events.
- */
-export interface HttpRequestState<T> {
-  /**
-   * Whether a request is currently in-flight.  true for a "loading" state,
-   * false otherwise.
-   */
-  readonly isLoading: boolean;
-  /**
-   * The response data for a "loaded" state, or optionally the last-known data
-   * (if any) for a "loading" or "error" state.
-   */
-  readonly value?: T;
-  /**
-   * The response error (if any) for an "error" state.
-   */
-  readonly error?: HttpErrorResponse | Error;
-}
-
-/**
  * Represents an in-flight HTTP request to load some data.
  *
  * A <code>value</code> may be provided to represent the previously-known value,
@@ -32,7 +9,7 @@ export interface HttpRequestState<T> {
  * UI).
  *
  */
-export interface LoadingState<T> extends HttpRequestState<T> {
+export interface LoadingState<T> {
   readonly isLoading: true;
   readonly value?: T;
   readonly error: undefined;
@@ -56,7 +33,7 @@ export interface LoadingStateWithValue<T> extends LoadingState<T> {
  * A <code>value</code> may be omitted if there is no data to display and such
  * a scenario is not considered an error condition.
  */
-export interface LoadedState<T> extends HttpRequestState<T> {
+export interface LoadedState<T> {
   readonly isLoading: false;
   readonly value: T;
   readonly error: undefined;
@@ -68,7 +45,7 @@ export interface LoadedState<T> extends HttpRequestState<T> {
  *
  * A <code>value</code> may be set to represent a last-known value, or similar.
  */
-export interface ErrorState<T> extends HttpRequestState<T> {
+export interface ErrorState<T> {
   readonly isLoading: false;
   readonly value?: T;
   readonly error: HttpErrorResponse | Error;
@@ -85,3 +62,14 @@ export interface ErrorState<T> extends HttpRequestState<T> {
 export interface ErrorStateWithValue<T> extends ErrorState<T> {
   readonly value: T;
 }
+
+/**
+ * Representation of the state of a data-loading operation.
+ *
+ * The various fields are readonly as this is meant to be used to represent an
+ * immutable snapshot of the current state in a stream of state change events.
+ */
+export type HttpRequestState<T> =
+  | LoadingState<T>
+  | LoadedState<T>
+  | ErrorState<T>;
