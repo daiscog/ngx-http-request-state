@@ -61,5 +61,6 @@
     "sharedGlobals": []
   },
   "useInferencePlugins": false,
-  "defaultBase": "origin/main"
+  "defaultBase": "origin/main",
+  "useLegacyCache": true
 }
