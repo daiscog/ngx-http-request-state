@@ -7,9 +7,19 @@ import { loadingState, loadedState, errorState } from './builders';
 export function httpRequestStates<T>(): (
   source: Observable<HttpResponse<T> | T>
 ) => Observable<HttpRequestState<T>>;
+/**
+ *
+ * @param mapResponse a function to map from HttpResponse<T> to K
+ * @deprecated use rxjs's map() operator to transform the response prior to using httpRequestStates() instead.
+ */
 export function httpRequestStates<T, K>(
   mapResponse: (result: HttpResponse<T>) => K
 ): (source: Observable<HttpResponse<T>>) => Observable<HttpRequestState<K>>;
+/**
+ *
+ * @param mapResponse a function to map from T to K
+ * @deprecated use rxjs's map() operator to transform the value prior to using httpRequestStates() instead.
+ */
 export function httpRequestStates<T, K>(
   mapResponse: (result: T) => K
 ): (source: Observable<T>) => Observable<HttpRequestState<K>>;
