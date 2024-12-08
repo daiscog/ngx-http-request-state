@@ -9,7 +9,6 @@ import { BasicDumbAltComponent } from '../basic-dumb-alt/basic-dumb-alt.componen
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  standalone: true,
   imports: [AsyncPipe, BasicDumbComponent, BasicDumbAltComponent],
   selector: 'examples-basic-smart',
   templateUrl: './basic-smart.component.html',

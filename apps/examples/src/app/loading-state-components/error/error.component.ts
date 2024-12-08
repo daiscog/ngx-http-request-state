@@ -9,7 +9,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 
 @Component({
-  standalone: true,
   imports: [NgIf],
   selector: 'examples-error',
   templateUrl: './error.component.html',

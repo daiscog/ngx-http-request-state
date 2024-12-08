@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'examples-multiple-sources-container',
-  standalone: true,
   imports: [CommonModule, MultipleSourcesLayoutComponent],
   templateUrl: './multiple-sources-container.component.html',
   styleUrls: ['./multiple-sources-container.component.css'],

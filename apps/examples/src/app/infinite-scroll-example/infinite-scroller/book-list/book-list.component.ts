@@ -3,7 +3,6 @@ import { Book } from '../model/book';
 import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
-  standalone: true,
   imports: [NgIf, NgForOf],
   selector: 'examples-book-list',
   templateUrl: './book-list.component.html',

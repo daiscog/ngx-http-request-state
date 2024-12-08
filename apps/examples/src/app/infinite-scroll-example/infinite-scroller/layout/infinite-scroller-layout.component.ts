@@ -18,7 +18,6 @@ import { BookApiResponse } from '../model/book';
 import { BookListComponent } from '../book-list/book-list.component';
 
 @Component({
-  standalone: true,
   imports: [ErrorComponent, SpinnerComponent, BookListComponent],
   selector: 'examples-infinite-scroller-layout',
   templateUrl: './infinite-scroller-layout.component.html',
