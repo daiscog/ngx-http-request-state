@@ -28,7 +28,6 @@ import { InfiniteScrollerLayoutComponent } from './layout/infinite-scroller-layo
 const PAGE_SIZE = 5;
 
 @Component({
-  standalone: true,
   imports: [AsyncPipe, NgIf, InfiniteScrollerLayoutComponent],
   selector: 'examples-infinite-scroller',
   templateUrl: './infinite-scroller.component.html',

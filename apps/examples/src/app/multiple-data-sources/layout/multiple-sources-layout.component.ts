@@ -27,7 +27,6 @@ const YEARS: string[] = Array(13)
 
 @Component({
   selector: 'examples-multiple-sources-layout',
-  standalone: true,
   imports: [
     NgForOf,
     ReactiveFormsModule,

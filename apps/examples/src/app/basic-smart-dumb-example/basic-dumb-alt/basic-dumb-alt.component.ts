@@ -15,7 +15,6 @@ import {
 import { BreweryDetailsComponent } from '../brewery-details/brewery-details.component';
 
 @Component({
-  standalone: true,
   imports: [NgIf, ErrorComponent, SpinnerComponent, BreweryDetailsComponent],
   selector: 'examples-basic-dumb-alt',
   templateUrl: './basic-dumb-alt.component.html',

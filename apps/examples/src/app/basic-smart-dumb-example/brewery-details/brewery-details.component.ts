@@ -4,7 +4,6 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'examples-brewery-details',
-  standalone: true,
   imports: [NgIf],
   templateUrl: './brewery-details.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
