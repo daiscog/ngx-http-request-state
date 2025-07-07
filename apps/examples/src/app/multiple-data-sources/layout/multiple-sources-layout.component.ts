@@ -42,7 +42,7 @@ export class MultipleSourcesLayoutComponent {
   beers: HttpRequestState<Brews & BrewDateForm> | null = null;
 
   @Output()
-  readonly search = new EventEmitter<BrewDateForm>();
+  readonly searchBrews = new EventEmitter<BrewDateForm>();
 
   readonly months = MONTHS;
   readonly years = YEARS;
@@ -53,6 +53,6 @@ export class MultipleSourcesLayoutComponent {
   });
 
   onSubmit() {
-    this.search.emit(this.form.value as BrewDateForm);
+    this.searchBrews.emit(this.form.value as BrewDateForm);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BookApiResponse } from '../model/book';
 import { delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +11,7 @@ const BOOKS_URL = 'https://openlibrary.org/search.json';
   providedIn: 'root',
 })
 export class BookService {
-  constructor(private readonly client: HttpClient) {}
+  readonly #http = inject(HttpClient);
 
   findBooks(
     searchTerm: string,
@@ -20,7 +20,7 @@ export class BookService {
   ): Observable<BookApiResponse> {
     const searchTermEncoded = encodeURIComponent(searchTerm);
     const page = start / max + 1;
-    return this.client
+    return this.#http
       .get<BookApiResponse>(
         `${BOOKS_URL}?author=${searchTermEncoded}&page=${page}&limit=${max}`
       )
