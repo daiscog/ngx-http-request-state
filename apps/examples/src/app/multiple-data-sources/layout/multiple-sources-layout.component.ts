@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+
 import { BrewDateForm } from '../model/form';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpRequestState } from 'ngx-http-request-state';
@@ -28,10 +28,8 @@ const YEARS: string[] = Array(13)
 @Component({
   selector: 'examples-multiple-sources-layout',
   imports: [
-    NgForOf,
     ReactiveFormsModule,
     SpinnerComponent,
-    NgIf,
     ErrorComponent,
     BeerListComponent,
   ],

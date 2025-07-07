@@ -1,9 +1,13 @@
-<div *ngIf="visible">
+@if (visible) {
+<div>
   <p>
     <strong>{{ title }}</strong>
   </p>
   <p>{{ message }}</p>
-  <p *ngIf="showRetryButton">
+  @if (showRetryButton) {
+  <p>
     <button type="button" (click)="retry.next()">Retry</button>
   </p>
+  }
 </div>
+}

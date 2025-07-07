@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { HttpRequestState } from 'ngx-http-request-state';
 import { Brewery } from '../model/brewery';
-import { NgIf } from '@angular/common';
+
 import {
   ErrorComponent,
   SpinnerComponent,
@@ -15,7 +15,7 @@ import {
 import { BreweryDetailsComponent } from '../brewery-details/brewery-details.component';
 
 @Component({
-  imports: [NgIf, SpinnerComponent, ErrorComponent, BreweryDetailsComponent],
+  imports: [SpinnerComponent, ErrorComponent, BreweryDetailsComponent],
   selector: 'examples-basic-dumb',
   templateUrl: './basic-dumb.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

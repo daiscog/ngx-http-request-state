@@ -6,10 +6,9 @@ import {
   Output,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgIf } from '@angular/common';
 
 @Component({
-  imports: [NgIf],
+  imports: [],
   selector: 'examples-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.css'],
