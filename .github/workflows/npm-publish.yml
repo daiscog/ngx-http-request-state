@@ -7,6 +7,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,18 +23,14 @@ jobs:
         with:
           version: 9.4.0
 
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
-      - run: pnpm run test
       - run: |
-          pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
-          pnpm publish --no-git-checks
-        working-directory: ./dist/libs/ngx-http-request-state
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          pnpm install --frozen-lockfile
+          pnpm run build
+          pnpm run test
+          cd ./dist/libs/ngx-http-request-state
+          npm publish
