@@ -22,13 +22,13 @@ import {
 } from 'ngx-http-request-state';
 import { BookApiResponse } from './model/book';
 import { BookService } from './book-service/book.service';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { InfiniteScrollerLayoutComponent } from './layout/infinite-scroller-layout.component';
 
 const PAGE_SIZE = 5;
 
 @Component({
-  imports: [AsyncPipe, NgIf, InfiniteScrollerLayoutComponent],
+  imports: [AsyncPipe, InfiniteScrollerLayoutComponent],
   selector: 'examples-infinite-scroller',
   templateUrl: './infinite-scroller.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

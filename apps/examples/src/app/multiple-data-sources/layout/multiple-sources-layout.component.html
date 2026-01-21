@@ -3,20 +3,25 @@
   <fieldset>
     <legend>Brew date</legend>
     <select formControlName="month" title="Month">
-      <option *ngFor="let monthOption of months">{{ monthOption }}</option>
+      @for (monthOption of months; track monthOption) {
+      <option>{{ monthOption }}</option>
+      }
     </select>
     <select formControlName="year" title="Year">
-      <option *ngFor="let yearOption of years">{{ yearOption }}</option>
+      @for (yearOption of years; track yearOption) {
+      <option>{{ yearOption }}</option>
+      }
     </select>
     <button type="submit">Go</button>
   </fieldset>
 </form>
 
-<examples-spinner *ngIf="beers?.isLoading"></examples-spinner>
-
-<examples-error *ngIf="beers?.error as error" [error]="error"></examples-error>
-
-<div *ngIf="beers?.value as results" class="results">
+@if (beers?.isLoading) {
+<examples-spinner></examples-spinner>
+} @if (beers?.error; as error) {
+<examples-error [error]="error"></examples-error>
+} @if (beers?.value; as results) {
+<div class="results">
   <section>
     <h2>Brewed before {{ results.month }}-{{ results.year }}</h2>
     <examples-beer-list [beers]="results.before"></examples-beer-list>
@@ -26,3 +31,4 @@
     <examples-beer-list [beers]="results.after"></examples-beer-list>
   </section>
 </div>
+}

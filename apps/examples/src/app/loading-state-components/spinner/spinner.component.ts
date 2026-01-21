@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
 
 @Component({
-  imports: [NgIf],
+  imports: [],
   selector: 'examples-spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.css'],

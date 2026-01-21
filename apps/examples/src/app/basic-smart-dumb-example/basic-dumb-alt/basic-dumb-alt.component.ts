@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Brewery } from '../model/brewery';
-import { NgIf } from '@angular/common';
+
 import {
   ErrorComponent,
   SpinnerComponent,
@@ -15,7 +15,7 @@ import {
 import { BreweryDetailsComponent } from '../brewery-details/brewery-details.component';
 
 @Component({
-  imports: [NgIf, ErrorComponent, SpinnerComponent, BreweryDetailsComponent],
+  imports: [ErrorComponent, SpinnerComponent, BreweryDetailsComponent],
   selector: 'examples-basic-dumb-alt',
   templateUrl: './basic-dumb-alt.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

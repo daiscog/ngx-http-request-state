@@ -4,11 +4,10 @@
   <button type="button" (click)="reloadClick.emit($event)">Load another</button>
 </p>
 
-<examples-brewery-details
-  *ngIf="brewery.value"
-  [brewery]="brewery.value"
-></examples-brewery-details>
-
-<examples-spinner *ngIf="brewery.isLoading"></examples-spinner>
-
-<examples-error *ngIf="brewery.error" [error]="brewery.error"></examples-error>
+@if (brewery.value) {
+<examples-brewery-details [brewery]="brewery.value"></examples-brewery-details>
+} @if (brewery.isLoading) {
+<examples-spinner></examples-spinner>
+} @if (brewery.error) {
+<examples-error [error]="brewery.error"></examples-error>
+}

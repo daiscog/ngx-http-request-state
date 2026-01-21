@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Brewery, RandomBreweryResponse } from './model/brewery';
@@ -9,10 +9,10 @@ import { maybeFakeAnErrorResponse } from '../utils/maybeError';
   providedIn: 'root',
 })
 export class RandomBreweryService {
-  constructor(private readonly httpClient: HttpClient) {}
+  readonly #httpClient = inject(HttpClient);
 
   randomBrewery(): Observable<Brewery> {
-    return this.httpClient
+    return this.#httpClient
       .get<RandomBreweryResponse>(
         'https://api.openbrewerydb.org/v1/breweries/random',
         {
