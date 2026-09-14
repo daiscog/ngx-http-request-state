@@ -6,7 +6,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Brewery } from '../model/brewery';
+import type { Brewery } from '../model/brewery';
 
 import {
   ErrorComponent,

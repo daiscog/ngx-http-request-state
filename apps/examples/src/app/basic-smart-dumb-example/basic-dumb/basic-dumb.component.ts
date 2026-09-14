@@ -5,8 +5,8 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { HttpRequestState } from 'ngx-http-request-state';
-import { Brewery } from '../model/brewery';
+import type { HttpRequestState } from 'ngx-http-request-state';
+import type { Brewery } from '../model/brewery';
 
 import {
   ErrorComponent,

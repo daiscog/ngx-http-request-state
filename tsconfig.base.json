@@ -13,10 +13,10 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "paths": {
-      "ngx-http-request-state": ["libs/ngx-http-request-state/src/index.ts"]
-    }
+      "ngx-http-request-state": ["./libs/ngx-http-request-state/src/index.ts"]
+    },
+    "types": ["*"]
   },
   "exclude": ["node_modules", "tmp"]
 }
