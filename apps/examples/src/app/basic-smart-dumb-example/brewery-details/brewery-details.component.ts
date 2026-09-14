@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Brewery } from '../model/brewery';
+import type { Brewery } from '../model/brewery';
 
 @Component({
   selector: 'examples-brewery-details',

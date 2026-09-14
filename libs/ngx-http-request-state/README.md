@@ -12,6 +12,7 @@ support its development:
 
 ## Versions
 
+Version `^3.7.0` supports Angular 14 - 22.
 Version `^3.6.0` supports Angular 14 - 20.
 Version `^3.5.0` supports Angular 14 - 19.
 Version `^3.2.0` supports Angular 14 - 18.

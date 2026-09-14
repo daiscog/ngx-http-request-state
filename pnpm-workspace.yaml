@@ -1,0 +1,10 @@
+allowBuilds:
+  '@parcel/watcher': false
+  cypress: false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
+  nx: false
+  unrs-resolver: false
+# five days in minutes
+minimumReleaseAge: 7200
